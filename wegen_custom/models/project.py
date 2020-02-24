@@ -10,13 +10,21 @@ _logger = logging.getLogger(__name__)
 class Wegen_Task(models.Model):
     _inherit = "project.task"
 
-    is_allowed_edit = fields.Boolean(compute='_is_allow_user_edit')
+    is_manager = fields.Boolean(compute='_is_manager')
+    is_assignee = fields.Boolean(compute='_is_assignee')
+    is_creator = fields.Boolean(compute='_is_creator')
 
-    def _is_allow_user_edit(self):
+    def _is_manager(self):
         for task in self:
-            _logger.info()
-            self.is_allowed_edit = False
-            if self.user_id == self.env.uid or self.manager_id == self.env.uid:
-                self.is_allowed_edit = True
-            message = f'User: {self.env.uid} Assignee: {self.user_id} Manager: {self.manager_id}'
-            _logger.info(message)
+            self.is_manager = self.manager_id.id == self.env.uid
+
+    def _is_assignee(self):
+        self.is_assignee = self.user_id.id == self.env.uid
+
+    def _is_creator(self):
+        if self.x_studio_project_classification == 'internal':
+            is_creator = not self.user_id and self.create_uid.id == self.env.uid
+        else:
+            is_creator = False
+
+        self.is_creator = is_creator
