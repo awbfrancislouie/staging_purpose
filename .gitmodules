@@ -1,0 +1,3 @@
+[submodule "wegen_custom"]
+	path = wegen_custom
+	url = git@git.awbni.com:odoo-development/wegen_custom.git
