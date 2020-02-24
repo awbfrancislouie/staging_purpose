@@ -12,7 +12,7 @@ class Wegen_Task(models.Model):
     def _is_allow_user_edit(self):
         for task in self:
             self.is_allowed_edit = False
-            if self.user_id or self.manager_id:
+            if self.user_id == self.env.uid or self.manager_id == self.env.uid:
                 self.is_allowed_edit = True
 
 # class wegen_custom(models.Model):
