@@ -2,6 +2,19 @@
 
 from odoo import models, fields, api
 
+
+class Wegen_Task(models.Model):
+    _inherit = "project.task"
+
+    is_allowed_edit = fields.Boolean(compute='_is_allow_user_edit')
+
+    @api.depends('user_id', 'manager_id')
+    def _is_allow_user_edit(self):
+        for task in self:
+            self.is_allowed_edit = False
+            if self.user_id or self.manager_id:
+                self.is_allowed_edit = True
+
 # class wegen_custom(models.Model):
 #     _name = 'wegen_custom.wegen_custom'
 
