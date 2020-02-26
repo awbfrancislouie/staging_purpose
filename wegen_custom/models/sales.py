@@ -25,6 +25,8 @@ class Wegen_Sales(models.Model):
         for record in self:
             if record.downpayment_rate > 100:
                 raise ValidationError("Downpayment Rate should not exceed 100%.")
+            elif record.downpayment_rate < 0:
+                raise ValidationError("Downpayment Rate should not be lower than 0%.")
 
     @api.depends('amount_total', 'downpayment', 'payment_term_id')
     def _compute_monthly_amortization(self):
