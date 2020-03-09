@@ -27,6 +27,8 @@
         # 'security/ir.model.access.csv',
         'views/task.xml',
         'views/templates.xml',
+        'views/payment_terms.xml',
+        'views/crm_view.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
