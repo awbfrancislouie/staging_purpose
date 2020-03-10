@@ -24,7 +24,7 @@
         <record id="crm_lead_kanban_lead_kwp_unit" model="ir.ui.view">
             <field name="name">crm.lead.kanban.lead.kwp_unit</field>
             <field name="model">crm.lead</field>
-            <field name="inherit_id" ref="crm.lead.kanban.lead" />
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads" />
             <field name="arch" type="xml">
                 <xpath expr="//kanban[1]//progressbar[1]" position="attributes">
                     <attribute name="currency">kWp</attribute>
