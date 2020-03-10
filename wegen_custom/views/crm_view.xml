@@ -19,7 +19,7 @@
                    <attribute name="attrs">{"readonly": [["id","&gt;",0]]}</attribute>
                 </field>
             </field>
-        </record>
+        </record> 
 
         <record id="crm_lead_kanban_lead_kwp_unit" model="ir.ui.view">
             <field name="name">crm.lead.kanban.lead.kwp_unit</field>
