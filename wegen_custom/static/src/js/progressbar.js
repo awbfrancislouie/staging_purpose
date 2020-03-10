@@ -5,7 +5,6 @@ odoo.define('wegen_custom.KanbanColumnProgressBar', function(require){
     var pgBar = progressbar.include({
         init: function(parent, options, columnState){
             this._super.apply(this, arguments);
-            console.log('Initialize progress bar');
             // Prepare currency (TODO this should be automatic... use a field ?)
             var sumFieldInfo = this.sumField && columnState.fieldsInfo.kanban[this.sumField];
             var currencyField = sumFieldInfo && sumFieldInfo.options && sumFieldInfo.options.currency_field;
