@@ -1,6 +1,12 @@
 <odoo>
-  <data>
-    <record id="crm_lead_user_form_readonly" model="ir.ui.view">
+    <data>
+         <template id="assets_backend" name="petstore_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/wegen_custom/static/src/js/progressbar.js"/>
+            </xpath>
+        </template>
+
+        <record id="crm_lead_user_form_readonly" model="ir.ui.view">
             <field name="name">crm.lead.user.form.readonly</field>
             <field name="model">crm.lead</field>
             <field name="inherit_id" ref="crm.crm_lead_view_form" />
@@ -13,7 +19,6 @@
                    <attribute name="readonly">1</attribute>                   
                 </field>
             </field>
-    </record> 
-      
+        </record>
     </data>
 </odoo>
