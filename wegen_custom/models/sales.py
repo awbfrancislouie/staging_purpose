@@ -8,6 +8,7 @@ _logger = logging.getLogger(__name__)
 class Wegen_Sales(models.Model):
     _inherit = "sale.order"
 
+    project_name = fields.Char("Project Name")
     downpayment_rate = fields.Float(string='Downpayment (%)', digits=(3, 2))
     delivery_rate = fields.Float(string="Delivery (%)", digits=(3,2))
     power_rate = fields.Float(string="System Power (%)", digits=(3,2))
