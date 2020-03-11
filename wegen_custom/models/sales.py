@@ -51,6 +51,8 @@ class Wegen_Sales(models.Model):
                 total_outright = record.downpayment_rate + record.delivery_rate + record.power_rate + record.turn_over_rate
                 if total_outright > 100:
                     raise ValidationError("Total Outright Rate should not exceed 100%.")
+                elif total_outright != 100:
+                    raise ValidationError("Total Outright Rate should be 100%.")
                 elif total_outright < 0:
                     raise ValidationError("Total Outright Rate should not be lower than 0%.")
 
