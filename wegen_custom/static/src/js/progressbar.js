@@ -1,5 +1,6 @@
 odoo.define('wegen_custom.KanbanColumnProgressBar', function(require){
     'use strict';
+    var session = require('web.session');
     var progressbar = require('web.KanbanColumnProgressBar');
     
     var pgBar = progressbar.include({
