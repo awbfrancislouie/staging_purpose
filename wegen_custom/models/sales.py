@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-from odoo.exceptions import ValidationError
+from odoo.exceptions import Warning,ValidationError
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -38,23 +38,23 @@ class Wegen_Sales(models.Model):
     @api.constrains('downpayment_rate')
     def _check_downpayment_rate(self):
         for record in self:
-            if record.payment_terms_type == 'installment':
+            if record.payment_term_id.payment_term_type == 'installment':
                 if record.downpayment_rate > 100:
-                    raise ValidationError("Downpayment Rate should not exceed 100%.")
+                    raise Warning("Downpayment Rate should not exceed 100%.")
                 elif record.downpayment_rate < 0:
-                    raise ValidationError("Downpayment Rate should not be lower than 0%.")
+                    raise Warning("Downpayment Rate should not be lower than 0%.")
                 
-    @api.constrains('downpayment_rate','delivery_rate','power_rate','turn_over_rate')
+    @api.constrains('downpayment_rate','delivery_rate','power_rate','turn_over_rate','payment_term_id')
     def _check_total_amount(self):
         for record in self:
-            if record.payment_terms_type == 'outright':
+            if record.payment_term_id.payment_term_type == 'outright':
                 total_outright = record.downpayment_rate + record.delivery_rate + record.power_rate + record.turn_over_rate
                 if total_outright > 100:
-                    raise ValidationError("Total Outright Rate should not exceed 100%.")
+                    raise Warning("Total Outright Rate should not exceed 100%.")
                 elif total_outright != 100:
-                    raise ValidationError("Total Outright Rate should be 100%.")
+                    raise Warning("Total Outright Rate should be 100%.")
                 elif total_outright < 0:
-                    raise ValidationError("Total Outright Rate should not be lower than 0%.")
+                    raise Warning("Total Outright Rate should not be lower than 0%.")
 
     @api.depends('amount_total', 'downpayment', 'payment_term_id')
     def _compute_monthly_amortization(self):
