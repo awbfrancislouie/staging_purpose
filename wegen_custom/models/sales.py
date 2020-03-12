@@ -64,3 +64,4 @@ class Wegen_Sales(models.Model):
                 count = len(record.payment_term_id.line_ids)
                 amortization = (record.amount_total - record.downpayment) / count
             record.monthly_amortization = amortization
+
