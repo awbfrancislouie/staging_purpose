@@ -16,7 +16,7 @@
                    <attribute name="attrs">{"readonly": [["id","&gt;",0]]}</attribute>
                 </field>
                 <field name="team_id" position="attributes">
-                   <attribute name="readonly">1</attribute>
+                   <attribute name="attrs">{"readonly": [["id","&gt;",0]]}</attribute>
                 </field>
             </field>
         </record>
