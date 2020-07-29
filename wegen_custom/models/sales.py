@@ -24,7 +24,6 @@ class Wegen_Sales(models.Model):
 
     @api.onchange('team_id')
     def _oc_filter_authorized_signatory(self):
-
         return {'domain': {'authorized_signatory': [('sale_team_id', '=', self.team_id.id)]}}
 
     @api.depends('amount_total', 'downpayment_rate', 'power_rate')
