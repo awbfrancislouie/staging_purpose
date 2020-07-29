@@ -51,3 +51,11 @@ class Wegen_Task(models.Model):
             self.is_allow_edit = True
         else:
             self.is_allow_edit = False
+
+class ProjectSiteLocation(models.Model):
+    _name = 'project.site'
+    _description = 'Project Site Location'
+    
+    name = fields.Char("Site Location Name", required=True)
+    zip_code = fields.Char('Zip Code', required=True)
+    notes = fields.Text("Notes")

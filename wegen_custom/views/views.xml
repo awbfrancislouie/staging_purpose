@@ -1,60 +1,31 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
-    <!--
-    <record model="ir.ui.view" id="wegen_custom.list">
-      <field name="name">wegen_custom list</field>
-      <field name="model">wegen_custom.wegen_custom</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </tree>
-      </field>
-    </record>
-    -->
+    <menuitem id="crm_project_menu"
+            parent="crm.crm_menu_config"
+            name="Project"            
+            sequence="5"/>
+    
+    <menuitem id="menu_crm_project_sites"
+        parent="crm_project_menu"
+        name="Project Sites"            
+        action="wegen_custom.crm_project_site_action"
+        sequence="1"/>
 
-    <!-- actions opening views on models -->
-    <!--
-    <record model="ir.actions.act_window" id="wegen_custom.action_window">
-      <field name="name">wegen_custom window</field>
-      <field name="res_model">wegen_custom.wegen_custom</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-    -->
+    <menuitem id="menu_project_project_sites"
+        parent="project.menu_project_config"
+        name="Project Site Location"            
+        action="wegen_custom.project_project_site_action"
+        sequence="15"/>
 
-    <!-- server action to the one above -->
-    <!--
-    <record model="ir.actions.server" id="wegen_custom.action_server">
-      <field name="name">wegen_custom server</field>
-      <field name="model_id" ref="model_wegen_custom_wegen_custom"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": self._name,
-        }
-      </field>
-    </record>
-    -->
+    <menuitem id="sale_project_menu"
+        parent="sale.menu_sale_config"
+        name="Project"            
+        sequence="5"/>
 
-    <!-- Top menu item -->
-    <!--
-    <menuitem name="wegen_custom" id="wegen_custom.menu_root"/>
-    -->
-    <!-- menu categories -->
-    <!--
-    <menuitem name="Menu 1" id="wegen_custom.menu_1" parent="wegen_custom.menu_root"/>
-    <menuitem name="Menu 2" id="wegen_custom.menu_2" parent="wegen_custom.menu_root"/>
-    -->
-    <!-- actions -->
-    <!--
-    <menuitem name="List" id="wegen_custom.menu_1_list" parent="wegen_custom.menu_1"
-              action="wegen_custom.action_window"/>
-    <menuitem name="Server to list" id="wegen_custom" parent="wegen_custom.menu_2"
-              action="wegen_custom.action_server"/>
-    -->
+    <menuitem id="menu_sale_project_sites"
+        parent="sale_project_menu"
+        name="Project Sites"            
+        action="sales_project_site_action"
+        sequence="1"/>
   </data>
 </odoo>

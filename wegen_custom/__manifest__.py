@@ -28,7 +28,10 @@
         'views/task.xml',
         'views/templates.xml',
         'views/payment_terms.xml',
-        'views/crm_view.xml'
+        'views/crm_view.xml',
+        'views/sale_view.xml',
+        'views/project_sites.xml',
+        'views/views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

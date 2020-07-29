@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="sale_order_wegen_form_ext">
+      <field name="name">sale.order.wegen.ext</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//group[@name='sales_person']/field[@name='team_id']" position="after">
+          <field name="authorized_signatory"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>
