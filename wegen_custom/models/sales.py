@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-from odoo.exceptions import Warning,ValidationError
+from odoo.exceptions import Warning, ValidationError
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 class Wegen_Sales(models.Model):
     _inherit = "sale.order"
 
-    project_name = fields.Char("Project Name")
+    project_code = fields.Char("Project Code", related='opportunity_id.project_code', readonly=True)
     downpayment_rate = fields.Float(string='Downpayment (%)', digits=(3, 2))
     delivery_rate = fields.Float(string="Delivery (%)", digits=(3,2))
     power_rate = fields.Float(string="System Power (%)", digits=(3,2))
@@ -49,7 +49,7 @@ class Wegen_Sales(models.Model):
                     raise Warning("Downpayment Rate should not exceed 100%.")
                 elif record.downpayment_rate < 0:
                     raise Warning("Downpayment Rate should not be lower than 0%.")
-                
+
     @api.constrains('downpayment_rate','delivery_rate','power_rate','turn_over_rate','payment_term_id')
     def _check_total_amount(self):
         for record in self:
@@ -70,6 +70,7 @@ class Wegen_Sales(models.Model):
                 count = len(record.payment_term_id.line_ids)
                 amortization = (record.amount_total - record.downpayment) / count
             record.monthly_amortization = amortization
+
 
 class SalesOrderLine(models.Model):
     _inherit = 'sale.order.line'
