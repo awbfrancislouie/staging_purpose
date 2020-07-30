@@ -1,4 +1,6 @@
-from odoo import models, fields, _
+from odoo import api, models, fields, _
+from odoo.exceptions import ValidationError
+from datetime import date
 import logging
 
 
@@ -7,6 +9,11 @@ _logger = logging.getLogger(__name__)
 
 class Wegen_Lead(models.Model):
     _inherit = "crm.lead"
+
+    site_location_id = fields.Many2one('project.site', ondelete='restrict')
+    x_studio_account_type = fields.Many2one('x_customer_account_type', )
+    project_code = fields.Char('Project Code')
+    project_code_id = fields.Many2one('project.code.inventory')
 
     def _create_lead_partner_data(self, name, is_company, parent_id=False):
         """ Override default partner data removes the user_id """
@@ -52,3 +59,64 @@ class Wegen_Lead(models.Model):
         _logger.info(f'Redirect to {retval}')
 
         return retval
+
+    @api.onchange('stage_id')
+    def _require_project_code(self):
+        REQUIRED_STAGE = ['GRADE 3', 'GRADE 4', 'GRADE 5', 'PARKED', 'GRADE 6']
+        rec = self
+        _logger.info(f'{rec.stage_id.name.upper()} | {rec.project_code}')
+        if rec.stage_id.name.upper() in REQUIRED_STAGE and not rec.project_code:
+            raise ValidationError('Project is empty. Please generate a Project Code.')
+
+    def action_generate_project_code(self):
+        if self.site_location_id is None:
+            raise ValidationError('Invalid Project Site. Please select a project site.')
+
+        if self.x_studio_account_type is None:
+            raise ValidationError('Invalid Account Type. Please select an account type.')
+
+        zip_code = self.site_location_id.zip_code
+        account_type = self.x_studio_account_type.x_code
+        today = date.today()
+        year = str(today.year)[:-2]
+
+        series = self._get_series(zip_code, account_type, year)
+
+        code = f'{zip_code}-{account_type}-{year}-{series:05}'
+
+        self.project_code = code
+
+    def _get_series(self, zip_code, account_type, year):
+        args = [('zip_code', '=', zip_code),
+                ('account_type', '=', account_type),
+                ('year', '=', year)
+                ]
+        code_inventory = self.env['project.code.inventory'].sudo()
+        series = code_inventory.search(args, limit=1, order='series DESC')
+        if len(series) == 0:
+            series = 1
+        else:
+            series = series[0].series + 1
+
+        data = {'zip_code': zip_code,
+                'account_type': account_type,
+                'year': year,
+                'series': series
+                }
+        code = code_inventory.create([data])
+        self.project_code_id = code[0].id
+
+        return series
+
+
+class ProjectCode(models.Model):
+    _name = 'project.code.inventory'
+
+    zip_code = fields.Char('Zip Code')
+    account_type = fields.Char('Account Type')
+    year = fields.Integer('Year')
+    series = fields.Integer('Series')
+
+    _sql_contraints = [
+        ('unique sequence', 'UNIQUE(zip_code, account_type, year, series)', 'Series already exists')
+    ]

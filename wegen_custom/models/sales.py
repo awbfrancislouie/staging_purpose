@@ -71,3 +71,15 @@ class Wegen_Sales(models.Model):
                 amortization = (record.amount_total - record.downpayment) / count
             record.monthly_amortization = amortization
 
+class SalesOrderLine(models.Model):
+    _inherit = 'sale.order.line'
+
+    def _timesheet_create_project_prepare_values(self):
+        values = super(SalesOrderLine, self)._timesheet_create_project_prepare_values()
+
+        _logger.info(f'CREATING PROJECT: {values}')
+        if self.order_id.project_name:
+            values['name'] = self.order_id.project_name
+
+        _logger.info(f'CREATING OVERRIDE PROJECT: {values}')
+        return values
