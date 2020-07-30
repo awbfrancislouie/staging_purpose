@@ -86,6 +86,9 @@ class Wegen_Lead(models.Model):
 
         self.project_code = code
 
+        msg_body = _("Project Code Generated: %s") % (code)
+        self.message_post(body=msg_body)
+
         for order_id in self.order_ids:
             _logger.info(f'Order ID: {order_id} {order_id.project_code} {order_id.project_ids}')
             projs = order_id.project_ids
