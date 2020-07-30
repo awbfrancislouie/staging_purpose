@@ -22,8 +22,9 @@ class Wegen_Sales(models.Model):
     annex_description = fields.Text("Annex")
     authorized_signatory = fields.Many2one('res.users', "Authorized Signatory")
 
-    @api.onchange('team_id')
+    @api.onchange('team_id', 'user_id')
     def _oc_filter_authorized_signatory(self):
+        self.authorized_signatory = False
         return {'domain': {'authorized_signatory': [('sale_team_id', '=', self.team_id.id)]}}
 
     @api.depends('amount_total', 'downpayment_rate', 'power_rate')
