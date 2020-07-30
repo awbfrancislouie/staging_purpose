@@ -79,8 +79,8 @@ class SalesOrderLine(models.Model):
         values = super(SalesOrderLine, self)._timesheet_create_project_prepare_values()
 
         _logger.info(f'CREATING PROJECT: {values}')
-        if self.order_id.project_name:
-            values['name'] = self.order_id.project_name
+        if self.order_id.project_code:
+            values['name'] = self.order_id.project_code
 
         _logger.info(f'CREATING OVERRIDE PROJECT: {values}')
         return values
