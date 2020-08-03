@@ -6,7 +6,8 @@
       <field name="inherit_id" ref="sale.view_order_form"/>
       <field name="arch" type="xml">
         <xpath expr="//group[@name='sales_person']/field[@name='team_id']" position="after">
-          <field name="authorized_signatory"/>
+          <field name="authorized_signatory" attrs="{'readonly':[('state','=','done')]}"
+                 domain="[('sale_team_id', '=', team_id)]"/>
         </xpath>
       </field>
     </record>

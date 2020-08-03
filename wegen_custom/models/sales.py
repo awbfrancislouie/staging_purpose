@@ -20,12 +20,7 @@ class Wegen_Sales(models.Model):
     monthly_amortization = fields.Monetary(string="Monthly Amortization", store=True, readonly=True, compute='_compute_monthly_amortization')
     payment_terms_type = fields.Selection('Payment Terms Type',related='payment_term_id.payment_term_type')
     annex_description = fields.Text("Annex")
-    authorized_signatory = fields.Many2one('res.users', "Authorized Signatory")
-
-    @api.onchange('team_id', 'user_id')
-    def _oc_filter_authorized_signatory(self):
-        self.authorized_signatory = False
-        return {'domain': {'authorized_signatory': [('sale_team_id', '=', self.team_id.id)]}}
+    authorized_signatory = fields.Many2one('res.users', "Authorized Signatory", default=lambda self: self.env.user, required=True)
 
     @api.depends('amount_total', 'downpayment_rate', 'power_rate')
     def _compute_amount(self):
