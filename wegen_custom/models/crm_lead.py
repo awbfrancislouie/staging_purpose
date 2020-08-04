@@ -79,8 +79,12 @@ class Wegen_Lead(models.Model):
         account_type = self.x_studio_account_type.x_code
         today = date.today()
         year = str(today.year)[:-2]
-
-        if self.project_code[0:4] == zip_code and self.project_code[5:8] == account_type and self.project_code[9:11] == year:
+        
+        get_current_zip_code = self.project_code[0:4] if self.project_code else None
+        get_current_account_type = self.project_code[5:8] if self.project_code else None
+        get_current_year = self.project_code[9:11] if self.project_code else None
+        
+        if get_current_zip_code == zip_code and get_current_account_type == account_type and get_current_year == year:
             raise ValidationError('You cannot generate a new project code if the same zipcode, account type and year.')
 
         series = self._get_series(zip_code, account_type, year)
