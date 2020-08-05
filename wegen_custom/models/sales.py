@@ -22,9 +22,10 @@ class Wegen_Sales(models.Model):
     annex_description = fields.Text("Annex")
     authorized_signatory = fields.Many2one('res.users', "Authorized Signatory", default=lambda self: self.env.user, required=True)
 
-    @api.onchange('team_id', 'user_id')
+    @api.onchange('team_id')
     def _oc_filter_authorized_signatory(self):
-        self.authorized_signatory = False
+        if self.authorized_signatory.sale_team_id not in self.team_id:
+            self.authorized_signatory = False
 
     @api.depends('amount_total', 'downpayment_rate', 'power_rate')
     def _compute_amount(self):

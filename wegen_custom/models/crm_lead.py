@@ -60,6 +60,12 @@ class Wegen_Lead(models.Model):
 
         return retval
 
+    def action_sale_quotations_new(self):
+        if not self.project_code:
+            raise ValidationError('Please generate the Project Code first before creating new contracts.')
+        retval = super(Wegen_Lead, self).action_sale_quotations_new()
+        return retval
+
     @api.onchange('stage_id')
     def _require_project_code(self):
         REQUIRED_STAGE = ['GRADE 3', 'GRADE 4', 'GRADE 5', 'PARKED', 'GRADE 6']
@@ -83,7 +89,10 @@ class Wegen_Lead(models.Model):
         get_current_zip_code = self.project_code[0:4] if self.project_code else None
         get_current_account_type = self.project_code[5:8] if self.project_code else None
         get_current_year = self.project_code[9:11] if self.project_code else None
-        
+
+        if not account_type:
+            raise ValidationError('Account type code is empty. Please enter code in account type')
+
         if get_current_zip_code == zip_code and get_current_account_type == account_type and get_current_year == year:
             raise ValidationError('You cannot generate a new project code if the same zipcode, account type and year.')
 
