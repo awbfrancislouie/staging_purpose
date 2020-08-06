@@ -75,9 +75,8 @@ class Wegen_Sales(models.Model):
 class SalesOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    def _timesheet_create_project_prepare_values(self):
-        values = super(SalesOrderLine, self)._timesheet_create_project_prepare_values()
-
+    def _timesheet_create_project(self):
+        values = super(SalesOrderLine, self)._timesheet_create_project()
         _logger.info(f'CREATING PROJECT: {values}')
         if self.order_id.project_code:
             values['name'] = self.order_id.project_code
