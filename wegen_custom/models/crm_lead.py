@@ -110,8 +110,8 @@ class Wegen_Lead(models.Model):
             projs = order_id.project_ids
             for project in projs:
                 _logger.info(f'Order ID: {order_id} Project Id: {project.name}')
-                project_name = project.name.split(' - ')
-                project_name = f'{code} - {project_name[1]}'
+                # project_name = project.name.split(' - ')
+                project_name = f'{code}'
                 project.name = project_name
 
     def _get_series(self, zip_code, account_type, year):
