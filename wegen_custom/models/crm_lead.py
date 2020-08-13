@@ -6,14 +6,27 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+REQUIRED_STAGE = ['GRADE 3', 'GRADE 4', 'GRADE 5', 'PARKED', 'GRADE 6']
+
 
 class Wegen_Lead(models.Model):
     _inherit = "crm.lead"
 
     site_location_id = fields.Many2one('project.site', ondelete='restrict')
+    site_location_id_required = fields.Boolean(compute='_compute_required_site_location')
     x_studio_account_type = fields.Many2one('x_customer_account_type', )
     project_code = fields.Char('Project Code')
     project_code_id = fields.Many2one('project.code.inventory')
+
+    def _compute_required_site_location(self):
+        retval = True
+
+        if self.type == 'lead':
+            retval = False
+        elif self.type == 'opportunity' and self.stage_id.name.upper() not in REQUIRED_STAGE:
+            retval = False
+
+        self.site_location_id_required = retval
 
     def _create_lead_partner_data(self, name, is_company, parent_id=False):
         """ Override default partner data removes the user_id """
@@ -68,24 +81,24 @@ class Wegen_Lead(models.Model):
 
     @api.onchange('stage_id')
     def _require_project_code(self):
-        REQUIRED_STAGE = ['GRADE 3', 'GRADE 4', 'GRADE 5', 'PARKED', 'GRADE 6']
         rec = self
         _logger.info(f'{rec.stage_id.name.upper()} | {rec.project_code}')
         if rec.stage_id.name.upper() in REQUIRED_STAGE and not rec.project_code:
             raise ValidationError('Project is empty. Please generate a Project Code.')
 
     def action_generate_project_code(self):
-        if self.site_location_id is None:
+
+        if not self.site_location_id:
             raise ValidationError('Invalid Project Site. Please select a project site.')
 
-        if self.x_studio_account_type is None:
+        if not self.x_studio_account_type:
             raise ValidationError('Invalid Account Type. Please select an account type.')
 
         zip_code = self.site_location_id.zip_code
         account_type = self.x_studio_account_type.x_code
         today = date.today()
         year = str(today.year)[:-2]
-        
+
         get_current_zip_code = self.project_code[0:4] if self.project_code else None
         get_current_account_type = self.project_code[5:8] if self.project_code else None
         get_current_year = self.project_code[9:11] if self.project_code else None

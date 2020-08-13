@@ -62,10 +62,10 @@
             <field name="inherit_id" ref="crm.crm_lead_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//header">
-                    <button name="action_generate_project_code" string="Generate Project Code" type="object" class="oe_highlight" attrs="{'invisible': ['|', '|', ('type','=','Lead'), ('project_code', '!=', False), ('id', '=', False)]}"/>
+                    <button name="action_generate_project_code" string="Generate Project Code" type="object" class="oe_highlight" attrs="{'invisible': ['|', '|', ('type','!=','opportunity'), ('project_code', '!=', False), ('id', '=', False)]}"/>
                 </xpath>
                 <xpath expr="//div[@class='oe_title']//h2" position="after">
-                    <field name="project_code" readonly="1" attrs="{'invisible': [('type', '=', 'Lead')]}" force_save="1"/>
+                    <field name="project_code" readonly="1" attrs="{'invisible': [('type', '=', 'lead')]}" force_save="1"/>
                 </xpath>
             </field>
         </record>
@@ -76,7 +76,8 @@
             <field name="inherit_id" ref="crm.crm_lead_view_form" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='user_id']" position="before">
-                    <field name="site_location_id" required="1" attrs="{'readonly': [('project_code', '!=', False)]}"/>
+                    <field name="site_location_id" attrs="{'readonly': [('project_code', '!=', False)], 'required': [('site_location_id_required', '=', True)]}"/>
+                    <field name="site_location_id_required" invisible="1"/>
                 </xpath>
                 
                 <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name='phone']" position="after">
@@ -93,7 +94,7 @@
             <field name="groups_id" eval="[(4, ref('sales_team.group_sale_manager') )]" />
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_generate_project_code']" position="attributes">
-                    <attribute name="attrs">{'invisible': ['|', '|', ('type','=','Lead'), ('id', '=', False)]}
+                    <attribute name="attrs">{'invisible': ['|', '|', ('type','!=','opportunity'), ('id', '=', False)]}
                     </attribute>
                 </xpath>
                 <xpath expr="//field[@name='site_location_id']" position="attributes">
