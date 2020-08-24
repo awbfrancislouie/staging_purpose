@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_awb_philippine_bir_awb_philippine_bir,awb_philippine_bir.awb_philippine_bir,model_awb_philippine_bir_awb_philippine_bir,base.group_user,1,1,1,1
