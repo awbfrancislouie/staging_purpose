@@ -4,6 +4,3 @@
 [submodule "awb_philippine_bir"]
 	path = awb_philippine_bir
 	url = git@git.awbni.com:odoo-development/erp/awb_philippine_bir.git
-[submodule "awb_subscription"]
-    path = awb_subscription
-    url = git@git.awbni.com:odoo-development/erp/awb_subscription.git
