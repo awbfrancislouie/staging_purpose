@@ -16,7 +16,7 @@ class Wegen_Lead(models.Model):
     site_location_id_required = fields.Boolean(compute='_compute_required_site_location')
     x_studio_account_type = fields.Many2one('x_customer_account_type', )
     project_code = fields.Char('Project Code')
-    project_code_id = fields.Many2one('project.code.inventory')
+    project_code_id = fields.Many2one('project.code.inventory', string='Project Code Inventory')
 
     def _compute_required_site_location(self):
         retval = True
