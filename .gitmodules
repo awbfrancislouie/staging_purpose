@@ -7,3 +7,6 @@
 [submodule "awb_subscription"]
 	path = awb_subscription
 	url = git@git.awbni.com:odoo-development/erp/subscription.git
+[submodule "requisition_approval"]
+	path = requisition_approval
+	url = git@git.awbni.com:odoo-development/erp/requisition_approval.git
