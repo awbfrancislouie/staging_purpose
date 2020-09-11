@@ -10,3 +10,9 @@
 [submodule "requisition_approval"]
 	path = requisition_approval
 	url = git@git.awbni.com:odoo-development/erp/requisition_approval.git
+[submodule "requisition_purchase"]
+	path = requisition_purchase
+	url = git@git.awbni.com:odoo-development/erp/requisition_purchase.git
+[submodule "requisition_material"]
+	path = requisition_material
+	url = git@git.awbni.com:odoo-development/erp/requisition_material.git
