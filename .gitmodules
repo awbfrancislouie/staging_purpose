@@ -16,3 +16,6 @@
 [submodule "requisition_material"]
 	path = requisition_material
 	url = git@git.awbni.com:odoo-development/erp/requisition_material.git
+[submodule "contact_record"]
+	path = contact_record
+	url = git@git.awbni.com:odoo-development/erp/contact_record.git
