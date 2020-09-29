@@ -19,3 +19,6 @@
 [submodule "contact_record"]
 	path = contact_record
 	url = git@git.awbni.com:odoo-development/erp/contact_record.git
+[submodule "opportunity_history"]
+	path = opportunity_history
+	url = git@git.awbni.com:odoo-development/erp/opportunity_history.git
