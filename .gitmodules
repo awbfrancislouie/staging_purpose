@@ -1,6 +1,3 @@
-[submodule "wegen_custom"]
-	path = wegen_custom
-	url = git@git.awbni.com:odoo-development/wegen_custom.git
 [submodule "awb_philippine_bir"]
 	path = awb_philippine_bir
 	url = git@git.awbni.com:odoo-development/erp/awb_philippine_bir.git
