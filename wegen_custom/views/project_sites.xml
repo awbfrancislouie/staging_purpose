@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sales_project_site_action" model="ir.actions.act_window">
+        <field name="name">Project Site</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.site</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record id="crm_project_site_action" model="ir.actions.act_window">
+        <field name="name">Project Site</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.site</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    
+    <record id="project_project_site_action" model="ir.actions.act_window">
+        <field name="name">Project Site</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.site</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record id="project_site_tree" model="ir.ui.view">
+        <field name="name">project.site.tree</field>
+        <field name="model">project.site</field>
+        <field name="priority">2</field>
+        <field name="arch" type="xml">
+            <tree string="Project Site Location">
+                <field name="name" string="Project Site Location"/>
+                <field name="zip_code"/>
+                <field name="notes"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="project_site_form" model="ir.ui.view">
+        <field name="name">project.site.form</field>
+        <field name="model">project.site</field>
+        <field name="priority">2</field>
+        <field name="arch" type="xml">
+            <form string="Project Site Location">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Enter Project Site Location Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="zip_code"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
