@@ -1,0 +1,144 @@
+<odoo>
+    <data>
+         <template id="assets_backend" name="petstore_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/wegen_custom/static/src/js/progressbar.js"/>
+            </xpath>
+        </template>
+
+        <record id="crm_lead_user_form_readonly" model="ir.ui.view">
+            <field name="name">crm.lead.user.form.readonly</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form" />
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman') ])]" />
+            <field name="priority" eval="99"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="attributes">
+                   <attribute name="attrs">{"readonly": [["id","&gt;",0]]}</attribute>
+                </field>
+                <field name="team_id" position="attributes">
+                   <attribute name="attrs">{"readonly": [["id","&gt;",0]]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="crm_lead_rsm_form_readonly" model="ir.ui.view">
+            <field name="name">crm.lead.rsm.form.readonly</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form" />
+            <field name="groups_id" eval="[(6, 0, [81])]" />
+            <field name="priority" eval="99"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="attributes">
+                    <attribute name="attrs">{"readonly": ["|",["sale_order_count","&gt;",0],["quotation_count","&gt;",0]]}</attribute>
+                   <attribute name="domain">['|', ('sale_team_id', '=', team_id), ('id','=',user_id)]</attribute>
+                </field>
+                <field name="team_id" position="attributes">
+                   <attribute name="readonly">1</attribute>
+                </field>
+            </field>
+        </record>
+        
+        <record id="crm_lead_all_form" model="ir.ui.view">
+            <field name="name">crm.lead.all.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form" />
+            <field name="priority" eval="100"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman_all_leads') ])]" />
+            <field name="arch" type="xml">
+                <field name="user_id" position="attributes">
+                    <attribute name="attrs">{"readonly": ["|",["sale_order_count","&gt;",0],["quotation_count","&gt;",0]]}</attribute>
+                </field>
+                <field name="team_id" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                    <attribute name="attrs">{"readonly": ["|",["sale_order_count","&gt;",0],["quotation_count","&gt;",0]]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="crm_lead_project_code_generate_form" model="ir.ui.view">
+            <field name="name">crm.lead.project_code_generate.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header">
+                    <button name="action_generate_project_code" string="Generate Project Code" type="object" class="oe_highlight" attrs="{'invisible': ['|', '|', ('type','!=','opportunity'), ('project_code', '!=', False), ('id', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//div[@class='oe_title']//h2" position="after">
+                    <field name="project_code" readonly="1" attrs="{'invisible': [('type', '=', 'lead')]}" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="crm_lead_project_site_form" model="ir.ui.view">
+            <field name="name">crm.lead.project_site.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="before">
+                    <field name="site_location_id" attrs="{'readonly': [('project_code', '!=', False)], 'required': [('site_location_id_required', '=', True)]}"/>
+                    <field name="site_location_id_required" invisible="1"/>
+                </xpath>
+                
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name='phone']" position="after">
+                <field name="x_studio_account_type" string="Account Type" options="{&quot;no_create&quot;:true}" attrs="{&quot;readonly&quot;: [[&quot;project_code&quot;,&quot;!=&quot;,False]], &quot;required&quot;: [[&quot;type&quot;,&quot;=&quot;,&quot;opportunity&quot;]]}" force_save="True"/>
+                </xpath>
+                
+            </field>
+        </record>
+
+        <record id="crm_lead_project_code_generate_form_admin" model="ir.ui.view">
+            <field name="name">crm.lead.project_code_generate.form.admin</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="groups_id" eval="[(4, ref('sales_team.group_sale_manager') )]" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_generate_project_code']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', ('type','!=','opportunity'), ('id', '=', False)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='site_location_id']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                </xpath>
+                
+                <xpath expr="//field[@name='x_studio_account_type']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                </xpath>
+                
+            </field>
+        </record>
+
+        <record id="crm_lead_kanban_lead_kwp_unit" model="ir.ui.view">
+            <field name="name">crm.lead.kanban.lead.kwp_unit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads" />
+            <field name="arch" type="xml">
+                <xpath expr="//kanban[1]//progressbar[1]" position="attributes">
+                    <attribute name="currency">kWp</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_lead_kanban_opportunity_project_code" model="ir.ui.view">
+            <field name="name">crm.lead.kanban.opportunity.project_code</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads" />
+            <field name="arch" type="xml">
+                <xpath expr="//strong[@class='o_kanban_record_title']" position="after">
+                    <field name="project_code"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_lead_tree_opportunity_project_code" model="ir.ui.view">
+            <field name="name">crm.lead.tree.opportunity.project_code</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='country_id']" position="after">
+                    <field name="project_code" optional="show" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
