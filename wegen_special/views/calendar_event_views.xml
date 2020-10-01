@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="calendar_event_view_form_inherit" model="ir.ui.view">
+        <field name="name">calendar.event.view.form.inherit</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+        <field name="arch" type="xml">
+            <field name="description" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="description" position="after">
+                <field name="html_description" widget="html"/>
+            </field>
+        </field>
+    </record>
+</odoo>
+
