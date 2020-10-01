@@ -13,3 +13,4 @@ class CustomerMarketType(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     x_name = fields.Char('Name')
+    test = fields.Char('Test')
