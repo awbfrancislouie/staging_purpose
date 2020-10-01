@@ -6,9 +6,11 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 class Wegen_Payment_Terms(models.Model):
-    _inherit='account.payment.term'
-    
-    payment_term_type = fields.Selection([('outright','Outright'),('installment','Installment'),('none','None')],
-                                        default='none')
-    
+    _inherit = 'account.payment.term'
+
+    payment_term_type = fields.Selection([('outright', 'Outright'),
+                                          ('installment', 'Installment'),
+                                          ('none', 'None')],
+                                         default='none')

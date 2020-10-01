@@ -10,15 +10,15 @@ class Wegen_Sales(models.Model):
 
     project_code = fields.Char("Project Code", related='opportunity_id.project_code', readonly=True)
     downpayment_rate = fields.Float(string='Downpayment (%)', digits=(3, 2))
-    delivery_rate = fields.Float(string="Delivery (%)", digits=(3,2))
-    power_rate = fields.Float(string="System Power (%)", digits=(3,2))
-    turn_over_rate = fields.Float(string="Turn Over (%)", digits=(3,2))
+    delivery_rate = fields.Float(string="Delivery (%)", digits=(3, 2))
+    power_rate = fields.Float(string="System Power (%)", digits=(3, 2))
+    turn_over_rate = fields.Float(string="Turn Over (%)", digits=(3, 2))
     downpayment = fields.Monetary(string='Downpayment Amount', store=True, readonly=True, compute='_compute_amount')
     delivery_amount = fields.Monetary(string="Delivery Amount", store=True, readonly=True, compute='_compute_amount')
     power_amount = fields.Monetary(string="System Power Up Amount", store=True, readonly=True, compute='_compute_amount')
     turn_over_amount = fields.Monetary(string="Commissioning and Turn Over Amount", store=True, readonly=True, compute='_compute_amount')
     monthly_amortization = fields.Monetary(string="Monthly Amortization", store=True, readonly=True, compute='_compute_monthly_amortization')
-    payment_terms_type = fields.Selection('Payment Terms Type',related='payment_term_id.payment_term_type')
+    payment_terms_type = fields.Selection('Payment Terms Type', related='payment_term_id.payment_term_type')
     annex_description = fields.Text("Annex")
     authorized_signatory = fields.Many2one('res.users', "Authorized Signatory", default=lambda self: self.env.user, required=True)
 
@@ -50,7 +50,7 @@ class Wegen_Sales(models.Model):
                 elif record.downpayment_rate < 0:
                     raise Warning("Downpayment Rate should not be lower than 0%.")
 
-    @api.constrains('downpayment_rate','delivery_rate','power_rate','turn_over_rate','payment_term_id')
+    @api.constrains('downpayment_rate', 'delivery_rate', 'power_rate', 'turn_over_rate', 'payment_term_id')
     def _check_total_amount(self):
         for record in self:
             if record.payment_term_id.payment_term_type == 'outright':
