@@ -14,7 +14,7 @@ class Wegen_Lead(models.Model):
 
     site_location_id = fields.Many2one('project.site', ondelete='restrict')
     site_location_id_required = fields.Boolean(compute='_compute_required_site_location')
-    x_studio_account_type = fields.Many2one('x_customer_account_type', )
+    x_studio_account_type = fields.Many2one('x_customer_account_type', 'Account Type')
     project_code = fields.Char('Project Code')
     project_code_id = fields.Many2one('project.code.inventory', string='Project Code Inventory')
 
