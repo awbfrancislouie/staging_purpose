@@ -1,6 +1,6 @@
 <odoo>
   <data>
-    <record model="ir.ui.view" id="sale_order_wegen_form_ext">
+    <record id="sale_order_wegen_form_ext" model="ir.ui.view" >
       <field name="name">sale.order.wegen.ext</field>
       <field name="model">sale.order</field>
       <field name="inherit_id" ref="sale.view_order_form"/>
@@ -21,6 +21,152 @@
           <field name="project_code" readonly="1"/>
         </xpath>
       </field>
-  </record>
+    </record>
+
+    <record id="view_order_tree" model="ir.ui.view">
+      <field name="name">sale.order.tree.inherit.wegen_custom</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_tree"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='company_id']" position="after">
+          <field name="estimated_kwp" sum="Sum of Estimated kWp"/>
+          <field name="system_size" sum="Sum of System Size"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="view_order_form" model="ir.ui.view">
+      <field name="name">sale.order.form.inherit.wegen_custom</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='partner_id']" position="after">
+          <!--<field name="project_name" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]]}" required="1"/>-->
+          <field name="account_type_1" options="{&quot;no_open&quot;:true,&quot;no_create&quot;:true}" string="Account Type" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]]}"/>
+        </xpath>
+        <xpath expr="//field[@name='sale_order_template_id']" position="after">
+          <field name="transaction_type" string="Transaction Type" widget="radio" options="{&quot;horizontal&quot;:true}" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]]}"/>
+        </xpath>
+        <xpath expr="//field[@name='validity_date']" position="before">
+          <field name="company_id" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]]}" options="{}"/>
+          <field name="state_id" string="Region"/>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name='pricelist_id']" position="attributes">
+          <attribute name="attrs">{"readonly": [["state","not in",["draft","sent"]]]}</attribute>
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name='pricelist_id']" position="after">
+          <field name="pricelist_id"/>
+          <xpath expr="//field[@name='payment_term_id']" position="move"/>
+          <field name="payment_terms_type"/>
+          <field name="monthly_amortization" attrs="{&quot;invisible&quot;: [&quot;|&quot;,[&quot;transaction_type&quot;,&quot;=&quot;,&quot;items&quot;],[&quot;payment_terms_type&quot;,&quot;=&quot;,&quot;outright&quot;]]}"/>
+          <field name="downpayment_rate" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]], &quot;required&quot;: [&quot;|&quot;,[&quot;payment_terms_type&quot;,&quot;=&quot;,&quot;outright&quot;],[&quot;payment_terms_type&quot;,&quot;=&quot;,&quot;installment&quot;]]}"/>
+          <field name="delivery_rate" attrs="{&quot;invisible&quot;: [[&quot;payment_terms_type&quot;,&quot;=&quot;,&quot;installment&quot;]], &quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]], &quot;required&quot;: [[&quot;payment_terms_type&quot;,&quot;=&quot;,&quot;outright&quot;]]}"/>
+          <field name="power_rate" attrs="{&quot;invisible&quot;: [[&quot;payment_terms_type&quot;,&quot;=&quot;,&quot;installment&quot;]], &quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]], &quot;required&quot;: [[&quot;payment_terms_type&quot;,&quot;=&quot;,&quot;outright&quot;]]}"/>
+          <field name="turn_over_rate" attrs="{&quot;invisible&quot;: [[&quot;payment_terms_type&quot;,&quot;=&quot;,&quot;installment&quot;]], &quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]], &quot;required&quot;: [[&quot;payment_terms_type&quot;,&quot;=&quot;,&quot;outright&quot;]]}"/>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/group[1]" position="after">
+          <group name="studio_group_vtB7P" attrs="{'invisible': [('transaction_type', '=', 'items')]}">
+            <group name="studio_group_vtB7P_left" string="System Configuration">
+              <field name="customer_market_type" string="Market Type" options="{&quot;no_open&quot;:true,&quot;no_create&quot;:true}" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]], &quot;invisible&quot;: [[&quot;transaction_type&quot;,&quot;=&quot;,&quot;items&quot;]]}"/>
+              <field name="customer_property_type" string="Property Type" options="{&quot;no_open&quot;:true,&quot;no_create&quot;:true}" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]]}"/>
+              <field name="customer_system_type" string="System Type" options="{&quot;no_create&quot;:true,&quot;no_open&quot;:true}" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]], &quot;required&quot;: [[&quot;transaction_type&quot;,&quot;=&quot;,&quot;installation&quot;]]}"/>
+              <field name="estimated_kwp" string="Estimated kWp" attrs="{}"/>
+              <field name="system_size" string="System Size" readonly="True" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]]}"/>
+            </group>
+            <group name="studio_group_vtB7P_right" string="System Components">
+              <field name="capacity" string="Capacity" attrs="{}" invisible="1"/>
+              <field name="solar_panel_type" options="{&quot;no_open&quot;:true,&quot;no_create&quot;:true}" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]], &quot;required&quot;: [[&quot;transaction_type&quot;,&quot;=&quot;,&quot;installation&quot;]]}"/>
+              <field name="panel_tier_1_count" string="Number of Tier 1 Panels " attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]], &quot;required&quot;: [[&quot;transaction_type&quot;,&quot;=&quot;,&quot;installation&quot;]]}"/>
+              <field name="inverter_count" string="Number of Inverters" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]], &quot;required&quot;: [[&quot;transaction_type&quot;,&quot;=&quot;,&quot;installation&quot;]]}"/>
+              <field name="batteries" string="Batteries" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]]}"/>
+              <field name="kwp_rate" string="kWp Rate" widget="monetary" attrs="{&quot;readonly&quot;: [[&quot;state&quot;,&quot;=&quot;,&quot;done&quot;]]}"/>
+            </group>
+          </group>
+        </xpath>
+        <xpath expr="//field[@name='note']" position="after">
+          <field name="annex_description" nolabel="1" placeholder="Annexes"/>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/group[@name='note_group']/group[@name='sale_total']/div[1]/label[1]" position="attributes">
+          <attribute name="string">Total Contract Price</attribute>
+        </xpath>
+        <xpath expr="//field[@name='amount_total']" position="attributes">
+          <attribute name="string">Total Contract Price</attribute>
+        </xpath>
+        <xpath expr="//field[@name='amount_total']" position="after">
+          <field name="downpayment"/>
+          <field name="delivery_amount" attrs="{&quot;invisible&quot;: [[&quot;payment_terms_type&quot;,&quot;=&quot;,&quot;installment&quot;]]}"/>
+          <field name="power_amount" attrs="{&quot;invisible&quot;: [[&quot;payment_terms_type&quot;,&quot;=&quot;,&quot;installment&quot;]]}"/>
+          <field name="turn_over_amount" attrs="{&quot;invisible&quot;: [[&quot;payment_terms_type&quot;,&quot;=&quot;,&quot;installment&quot;]]}"/>
+        </xpath>
+        <xpath expr="//field[@name='user_id']" position="attributes">
+          <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='team_id']" position="attributes">
+          <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='other_information']/group[1]/group[@name='sales_person']/field[@name='company_id']" position="attributes">
+          <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='client_order_ref']" position="attributes">
+          <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='fiscal_position_id']" position="attributes">
+          <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='analytic_account_id']" position="attributes">
+          <attribute name="attrs">{"readonly": ["|",["invoice_count","!=",0],["state","in",["sale","done"]]]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='origin']" position="attributes">
+          <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='opportunity_id']" position="attributes">
+          <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='other_information']/group[2]/group[@name='sale_reporting']/group[@name='utm_link']/field[@name='campaign_id']" position="attributes">
+          <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='other_information']/group[2]/group[@name='sale_reporting']/group[@name='utm_link']/field[@name='medium_id']" position="attributes">
+          <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
+          <attribute name="readonly">1</attribute>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='other_information']/group[2]/group[@name='sale_reporting']/group[@name='utm_link']/field[@name='source_id']" position="attributes">
+          <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='payment_term_id']" position="attributes">
+          <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
+          <attribute name="domain">[['payment_term_scope','=',transaction_type]]</attribute>
+          <attribute name="required">1</attribute>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="sale_order_view_search_inherit_quotation" model="ir.ui.view">
+      <field name="name">sale.order.search.inherit.wegen_custom</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+      <field name="arch" type="xml">
+        <xpath expr="//filter[@name='salesperson']" position="before">
+          <filter context="{'group_by': 'company_id'}" name="group_by_company_id" string="Company"/>
+          <filter context="{'group_by': 'state_id'}" name="group_by_state_id" string="Region"/>
+          <filter context="{'group_by': 'team_id'}" name="group_by_team_id" string="Sales Team"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="action_quotations_with_onboarding" model="ir.actions.act_window">
+      <field name="binding_type">action</field>
+      <field name="binding_view_types">list,form</field>
+      <field name="context">{'search_default_my_quotation': 1}</field>
+      <field name="groups_id" eval="[(6, 0, [])]"/>
+      <field name="limit">80</field>
+      <field name="name">Contracts</field>
+      <field name="res_model">sale.order</field>
+      <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+      <field name="target">current</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_id" ref="sale.view_quotation_tree_with_onboarding"/>
+      <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+    </record>
   </data>
 </odoo>

@@ -1,0 +1,306 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <!-- CUSTOMER CONFIG MENU -->
+    <record id="menu_sale_config_customer" model="ir.ui.menu">
+        <field name="action" ref="base.action_open_website"/>
+        <field name="active" eval="True"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="name">Customers</field>
+        <field name="parent_id" ref="sale.menu_sale_config"/>
+        <field name="sequence">2</field>
+    </record>
+
+    <!-- CUSTOMER ACCOUNT TYPE -->
+    <record id="view_customer_account_type_tree" model="ir.ui.view">
+        <field name="name">sale.customer_account_type.tree</field>
+        <field name="model">sale.customer_account_type</field>
+        <field name="arch" type="xml">
+            <tree string="Customer Account Type">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_customer_account_type_form" model="ir.ui.view">
+        <field name="name">sale.customer_account_type.form</field>
+        <field name="model">sale.customer_account_type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet string="Customer Account Type">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                      <group>
+                          <field name="code"/>
+                      </group>
+                      <group/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_account_type" model="ir.actions.act_window">
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list,form</field>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="limit">80</field>
+        <field name="name">Customer Account Type</field>
+        <field name="res_model">sale.customer_account_type</field>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="menu_sale_config_customer_account_type" model="ir.ui.menu">
+        <field name="action" ref="action_view_account_type"/>
+        <field name="active" eval="True"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="name">Account Types</field>
+        <field name="parent_id" ref="menu_sale_config_customer"/>
+        <field name="sequence" eval="False"/>
+    </record>
+
+    <!-- CUSTOMER MARKET TYPE -->
+    <record id="view_customer_market_type_tree" model="ir.ui.view">
+        <field name="name">sale.customer_market_type.tree</field>
+        <field name="model">sale.customer_market_type</field>
+        <field name="arch" type="xml">
+            <tree string="Customer Market Type">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_customer_market_type_form" model="ir.ui.view">
+        <field name="name">sale.customer_market_type.form</field>
+        <field name="model">sale.customer_market_type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet string="Customer Market Type">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                      <group/>
+                      <group/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_market_type" model="ir.actions.act_window">
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list,form</field>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="limit">80</field>
+        <field name="name">Customer Market Type</field>
+        <field name="res_model">sale.customer_market_type</field>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="menu_sale_config_customer_market_type" model="ir.ui.menu">
+        <field name="action" ref="action_view_market_type"/>
+        <field name="active" eval="True"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="name">Market Types</field>
+        <field name="parent_id" ref="menu_sale_config_customer"/>
+        <field name="sequence">1</field>
+    </record>
+
+
+    <!-- CUSTOMER PROPERTY TYPE -->    
+    <record id="view_customer_property_type_tree" model="ir.ui.view">
+        <field name="name">sale.customer_property_type.tree</field>
+        <field name="model">sale.customer_property_type</field>
+        <field name="arch" type="xml">
+            <tree string="Customer Property Type">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_customer_property_type_form" model="ir.ui.view">
+        <field name="name">sale.customer_property_type.form</field>
+        <field name="model">sale.customer_property_type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet string="Customer Property Type">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                      <group/>
+                      <group/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_property_type" model="ir.actions.act_window">
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list,form</field>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="limit">80</field>
+        <field name="name">Customer Property Type</field>
+        <field name="res_model">sale.customer_property_type</field>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="menu_sale_config_customer_property_type" model="ir.ui.menu">
+        <field name="action" ref="action_view_property_type"/>
+        <field name="active" eval="True"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="name">Property Types</field>
+        <field name="parent_id" ref="menu_sale_config_customer"/>
+        <field name="sequence">2</field>
+    </record>
+
+
+    <!-- CUSTOMER SYSTEM TYPE -->
+    <record id="view_customer_system_type_tree" model="ir.ui.view">
+        <field name="name">sale.customer_system_type.tree</field>
+        <field name="model">sale.customer_system_type</field>
+        <field name="arch" type="xml">
+            <tree string="Customer System Type">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_customer_system_type_form" model="ir.ui.view">
+        <field name="name">sale.customer_system_type.form</field>
+        <field name="model">sale.customer_system_type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet string="Customer System Type">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                      <group/>
+                      <group/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_system_type" model="ir.actions.act_window">
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list,form</field>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="limit">80</field>
+        <field name="name">Customer System Type</field>
+        <field name="res_model">sale.customer_system_type</field>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="menu_sale_config_customer_system_type" model="ir.ui.menu">
+        <field name="action" ref="action_view_system_type"/>
+        <field name="active" eval="True"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="name">System Types</field>
+        <field name="parent_id" ref="menu_sale_config_customer"/>
+        <field name="sequence">3</field>
+    </record>
+
+    <!-- SOLAR PANEL TYPE -->
+    <record id="view_solar_panel_type_tree" model="ir.ui.view">
+        <field name="name">sale.solar_panel_type.tree</field>
+        <field name="model">sale.solar_panel_type</field>
+        <field name="arch" type="xml">
+            <tree string="Solar Panel Type">
+                <field name="name"/>
+                <field name="capacity"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_solar_panel_type_form" model="ir.ui.view">
+        <field name="name">sale.solar_panel_type.form</field>
+        <field name="model">sale.solar_panel_type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet string="Solar Panel Type">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                      <group>
+                          <field name="capacity"/>
+                      </group>
+                      <group/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_solar_panel_type" model="ir.actions.act_window">
+        <field name="binding_type">action</field>
+        <field name="binding_view_types">list,form</field>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="limit">80</field>
+        <field name="name">Solar Panel Types</field>
+        <field name="res_model">sale.solar_panel_type</field>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="menu_sale_config_customer_panel_type" model="ir.ui.menu">
+        <field name="action" ref="action_view_solar_panel_type"/>
+        <field name="active" eval="True"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="name">Solar Panel Types</field>
+        <field name="parent_id" ref="sale.menu_sales_config"/>
+        <field name="sequence">1</field>
+    </record>
+</odoo>

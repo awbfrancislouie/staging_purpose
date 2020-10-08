@@ -1,0 +1,15 @@
+<odoo>
+  <record id="product_template_only_form_view" model="ir.ui.view">
+    <field name="name">product.template.product.form.inherit.wegen_custom</field>
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="product.product_template_only_form_view"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//field[@name='company_id']" position="after">
+          <field name="uom" string="Unit of Measure" options="{'no_create':true}" attrs="{}" required="1"/>
+          <field name="purchase_uom" string="Purchase Unit of Measure"/>
+        </xpath>
+      </data>
+    </field>
+  </record>
+</odoo>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_project" model="ir.ui.view">
+       <field name="name">project.project.tree.inherit.wegen_custom</field>
+       <field name="model">project.project</field>
+       <field name="inherit_id" ref="project.view_project" />
+       <field name="arch" type="xml">
+          <xpath expr="//tree[1]/field[@name='name']" position="after">
+             <field name="state" />
+          </xpath>
+          <xpath expr="//field[@name='user_id']" position="after">
+             <xpath expr="//field[@name='company_id']" position="move" />
+             <field name="budget" sum="Sum of Project Budget Cost" string="Project Budget Cost" widget="monetary" />
+             <field name="actual_cost" sum="Sum of Project Actual Cost" string="Project Actual Cost" />
+             <field name="system_size" sum="Sum of System Size" widget="float" string="System Size (kWp)" />
+             <field name="currency_id" attrs="{}" invisible="1" />
+          </xpath>
+       </field>
+    </record>
+
+
+    <record id="view_project" model="ir.ui.view">
+       <field name="name">project.project.tree.inherit.wegen_custom</field>
+       <field name="model">project.project</field>
+       <field name="inherit_id" ref="project.view_project" />
+       <field name="arch" type="xml">
+          <xpath expr="//tree[1]/field[@name='name']" position="after">
+             <field name="state" />
+          </xpath>
+          <xpath expr="//field[@name='user_id']" position="after">
+             <xpath expr="//field[@name='company_id']" position="move" />
+             <field name="budget" sum="Sum of Project Budget Cost" string="Project Budget Cost" widget="monetary" />
+             <field name="actual_cost" sum="Sum of Project Actual Cost" string="Project Actual Cost" />
+             <field name="system_size" sum="Sum of System Size" widget="float" string="System Size (kWp)" />
+             <field name="currency_id" attrs="{}" invisible="1" />
+          </xpath>
+       </field>
+    </record>
+
+    <record id="project_view_kanban" model="ir.ui.view">
+       <field name="name">project.project.kanban.inherit.wegen_custom</field>
+       <field name="model">project.project</field>
+       <field name="inherit_id" ref="project.project_view_kanban" />
+       <field name="arch" type="xml">
+          <xpath expr="//field[@name='partner_id']" position="after">
+             <field name="classification" invisible="1" />
+             <field display="full" name="state" attrs="{'invisible':[('classification','=','internal')]}" />
+             <field display="false" name="budget" widget="monetary" attrs="{'invisible':[('classification','=','internal')]}" />
+             <label string="/" attrs="{'invisible':[('classification','=','internal')]}" />
+             <field display="false" name="actual_cost" widget="monetary" attrs="{'invisible':[('classification','=','internal')]}" />
+             <field display="full" name="currency_id" attrs="{}" invisible="1" />
+             <br />
+             <field display="false" name="system_size" attrs="{'invisible':[('classification','=','internal')]}" />
+             <label string="kWp" attrs="{'invisible':[('classification','=','internal')]}" />
+          </xpath>
+       </field>
+    </record>
+
+    <record id="edit_project" model="ir.ui.view">
+       <field name="name">project.project.form.inherit.wegen_custom</field>
+       <field name="model">project.project</field>
+       <field name="inherit_id" ref="project.edit_project" />
+       <field name="arch" type="xml">
+          <xpath expr="//button[@name='action_make_billable']" position="after">
+             <field name="state" options="{'clickable': '1'}" widget="statusbar" string="Project Status" />
+          </xpath>
+          <xpath expr="//field[@name='user_id']" position="attributes">
+             <attribute name="string">Installation Manager</attribute>
+          </xpath>
+          <xpath expr="//field[@name='partner_id']" position="after">
+             <field name="system_size" string="System Size" attrs="{'invisible': [['classification','=','internal']]}" />
+             <field name="actual_cost" string="Project Actual Cost" attrs="{'invisible': [['classification','=','internal']]}" readonly="False" />
+             <field name="budget" string="Project Budget Cost" widget="monetary" attrs="{'invisible': [['classification','=','internal']]}" />
+             <field name="total_duration" string="Total Project Duration" attrs="{'invisible': [['classification','=','internal']]}" />
+             <field name="installer_type" string="Installer Type" widget="radio" attrs="{'invisible': [['classification','=','internal']]}" />
+             <field name="vendor_id" string="Vendor" attrs="{'invisible': [['installer_type','=','in_house']]}" domain="[['child_ids.supplier_rank','>=',1]]" />
+             <field name="employee_id" string="Employee" attrs="{'invisible': ['|',['installer_type','=','epc'],['classification','=','internal']]}" />
+             <field name="currency_id" attrs="{}" invisible="1" />
+          </xpath>
+          <xpath expr="//field[@name='company_id']" position="after">
+             <field name="classification" string="Classification" attrs="{}" required="1" />
+          </xpath>
+          <xpath expr="//field[@name='allow_forecast']" position="after">
+             <field name="is_template" studio-view-group-names="User" studio-view-group-ids="54" string="Project Template" />
+          </xpath>
+          <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='settings']/group[1]" position="after">
+             <group>
+                <group name="group_left" string="Start Date" attrs="{'invisible': [['classification','=','internal']]}">
+                   <field name="planning_start_date" string="Planning" />
+                   <field name="installation_start_date" string="Installation" />
+                   <field name="testing_start_date" string="Testing and Commissioning" />
+                   <field name="energized_start_date" string="Energized" />
+                </group>
+                <group name="group_right" string="End Date" attrs="{'invisible': [['classification','=','internal']]}">
+                   <field name="planning_end_date" string="Planning" />
+                   <field name="installation_end_date" string="Installation" />
+                   <field name="testing_end_date" string="Testing and Commissioning" />
+                   <field name="energized_end_date" string="Energized" />
+                </group>
+             </group>
+          </xpath>
+          <xpath expr="//field[@name='sale_order_id']" position="attributes">
+             <attribute name="attrs">{"invisible": [["billable_type","=","no"]]}</attribute>
+          </xpath>
+       </field>
+    </record>
+
+    <record id="view_project_project_filter" model="ir.ui.view">
+       <field name="name">project.project.select.inherit.wegen_custom</field>
+       <field name="model">project.project</field>
+       <field name="inherit_id" ref="project.view_project_project_filter" />
+       <field name="arch" type="xml">
+          <xpath expr="//filter[@name='my_projects']" position="after">
+             <separator />
+             <filter domain="[['state','=','planning']]" name="filter_state_planning" string="Projects in Planning and Preparation Phase" />
+             <filter domain="[['state','=','installation']]" name="filter_state_installation" string="Projects in Installation Phase" />
+             <filter domain="[['state','=','testing']]" name="filter_state_testing" string="Projects in Testing and Commissioning Phase" />
+             <filter domain="[['state','=','energized']]" name="filter_state_energized" string="Projects in Energized Phase" />
+             <separator name="studio_separator_m0ZSC" />
+             <filter domain="[['classification','=','external']]" name="filter_installation" string="Installation Project" />
+             <filter domain="[['classification','=','internal']]" name="filter_internal" string="Internal Project" />
+             <separator name="studio_separator_xHxsX" />
+             <filter domain="[['state','!=','done']]" name="filter_ongoing" string="On Going" />
+             <filter domain="[['state','=','done']]" name="filter_done" string="Energized" />
+          </xpath>
+          <xpath expr="//filter[@name='Manager']" position="before">
+             <filter context="{'group_by': 'state'}" name="group_by_state" string="Project Status" />
+             <filter context="{'group_by': 'company_id'}" name="group_by_company" string="Company" />
+          </xpath>
+       </field>
+    </record>
+
+    <record id="view_task_kanban" model="ir.ui.view">
+      <field name="name">project.task.kanban.inherit.wegen_custom</field>
+      <field name="model">project.task</field>
+      <field name="inherit_id" ref="project.view_task_kanban" />
+      <field name="arch" type="xml">
+        <xpath expr="//kanban[1]" position="attributes">
+          <attribute name="quick_create">false</attribute>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="view_task_form2" model="ir.ui.view">
+      <field name="name">project.task.form.inherit.wegen_custom</field>
+      <field name="model">project.task</field>
+      <field name="inherit_id" ref="project.view_task_form2"/>
+      <field name="arch" type="xml">
+        <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='project_id']" position="after">
+          <field name="company_1" string="Company" attrs="{'readonly': [('project_classification','=','external')]}" required="1" options="{&quot;no_open&quot;:true,&quot;no_create&quot;:true}"/>
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='user_id']" position="after">
+          <field name="project_status" string="Project Status" attrs="{}" invisible="1"/>
+        </xpath>
+        <xpath expr="//field[@name='sale_line_id']" position="attributes">
+          <attribute name="attrs">{"invisible": ["|",["partner_id","=",False],"&amp;",["sale_order_id","!=",False],["sale_line_id","=",False]]}</attribute>
+          <attribute name="readonly">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='date_last_stage_update']" position="after">
+          <field name="project_classification" string="Project Classification" attrs="{}" invisible="1"/>
+          <field name="move_date" string="Date Move" attrs="{}" invisible="1"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="open_view_project_all" model="ir.actions.act_window">
+      <field name="binding_model_id" eval="False"/>
+      <field name="binding_type">action</field>
+      <field name="binding_view_types">list,form</field>
+      <field name="context">{}</field>
+      <field name="domain">[('is_project_template','!=',1)]</field>
+      <field name="filter" eval="False"/>
+      <field name="groups_id" eval="[(6, 0, [])]"/>
+      <field name="limit">80</field>
+      <field name="name">Projects</field>
+      <field name="res_model">project.project</field>
+      <field name="search_view_id" ref="project.view_project_project_filter"/>
+      <field name="target">main</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="usage" eval="False"/>
+      <field name="view_id" ref="project.view_project_kanban"/>
+      <field name="view_mode">kanban,form,tree,graph,pivot</field>
+    </record>
+  </data>
+</odoo>

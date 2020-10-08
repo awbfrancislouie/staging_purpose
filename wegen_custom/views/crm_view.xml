@@ -14,10 +14,10 @@
             <field name="priority" eval="99"/>
             <field name="arch" type="xml">
                 <field name="user_id" position="attributes">
-                   <attribute name="attrs">{"readonly": [["id","&gt;",0]]}</attribute>
+                   <attribute name="attrs">{"readonly": [["id",">",0]]}</attribute>
                 </field>
                 <field name="team_id" position="attributes">
-                   <attribute name="attrs">{"readonly": [["id","&gt;",0]]}</attribute>
+                   <attribute name="attrs">{"readonly": [["id",">",0]]}</attribute>
                 </field>
             </field>
         </record>
@@ -30,7 +30,7 @@
             <field name="priority" eval="99"/>
             <field name="arch" type="xml">
                 <field name="user_id" position="attributes">
-                    <attribute name="attrs">{"readonly": ["|",["sale_order_count","&gt;",0],["quotation_count","&gt;",0]]}</attribute>
+                    <attribute name="attrs">{"readonly": ["|",["sale_order_count",">",0],["quotation_count",">",0]]}</attribute>
                    <attribute name="domain">['|', ('sale_team_id', '=', team_id), ('id','=',user_id)]</attribute>
                 </field>
                 <field name="team_id" position="attributes">
@@ -47,11 +47,11 @@
             <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman_all_leads') ])]" />
             <field name="arch" type="xml">
                 <field name="user_id" position="attributes">
-                    <attribute name="attrs">{"readonly": ["|",["sale_order_count","&gt;",0],["quotation_count","&gt;",0]]}</attribute>
+                    <attribute name="attrs">{"readonly": ["|",["sale_order_count",">",0],["quotation_count",">",0]]}</attribute>
                 </field>
                 <field name="team_id" position="attributes">
                     <attribute name="readonly">0</attribute>
-                    <attribute name="attrs">{"readonly": ["|",["sale_order_count","&gt;",0],["quotation_count","&gt;",0]]}</attribute>
+                    <attribute name="attrs">{"readonly": ["|",["sale_order_count",">",0],["quotation_count",">",0]]}</attribute>
                 </field>
             </field>
         </record>
@@ -81,7 +81,8 @@
                 </xpath>
                 
                 <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name='phone']" position="after">
-                <field name="x_studio_account_type" string="Account Type" options="{&quot;no_create&quot;:true}" attrs="{&quot;readonly&quot;: [[&quot;project_code&quot;,&quot;!=&quot;,False]], &quot;required&quot;: [[&quot;type&quot;,&quot;=&quot;,&quot;opportunity&quot;]]}" force_save="True"/>
+                    <field name="account_type" string="Account Type" options="{'no_create':true}" attrs="{'readonly': [['project_code','!=',False]], 'required': [['type','=','opportunity']]}" force_save="True"/>
+                    <field name="property_type" string="Property Type" options="{'no_create':true}" attrs="{'required': [['type','=','opportunity']]}" />
                 </xpath>
                 
             </field>
@@ -101,7 +102,7 @@
                     <attribute name="attrs">{}</attribute>
                 </xpath>
                 
-                <xpath expr="//field[@name='x_studio_account_type']" position="attributes">
+                <xpath expr="//field[@name='account_type']" position="attributes">
                     <attribute name="attrs">{}</attribute>
                 </xpath>
                 
@@ -113,8 +114,9 @@
             <field name="model">crm.lead</field>
             <field name="inherit_id" ref="crm.crm_case_kanban_view_leads" />
             <field name="arch" type="xml">
-                <xpath expr="//kanban[1]//progressbar[1]" position="attributes">
-                    <attribute name="currency">kWp</attribute>
+                <xpath expr="//kanban[1]//progressbar[1]" position="replace">
+                    <field name="estimated_kwp"/>
+                    <progressbar field="activity_state" colors="{&quot;planned&quot;: &quot;success&quot;, &quot;today&quot;: &quot;warning&quot;, &quot;overdue&quot;: &quot;danger&quot;}" sum_field="estimated_kwp" currency="kWp"  help="This bar allows to filter the opportunities based on scheduled activities."/>
                 </xpath>
             </field>
         </record>
@@ -124,8 +126,25 @@
             <field name="model">crm.lead</field>
             <field name="inherit_id" ref="crm.crm_case_kanban_view_leads" />
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='planned_revenue']" position="after">
+                    <field name="estimated_kwp"/>
+                </xpath>
+                <xpath expr="//progressbar[@field='activity_state']" position="attributes">
+                    <attritbute name="sum_field">estimated_kwp</attritbute>
+                </xpath>
                 <xpath expr="//strong[@class='o_kanban_record_title']" position="after">
                     <field name="project_code"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_case_kanban_view_leads" model="ir.ui.view">
+            <field name="name">crm.lead.kanban.lead.inherit.wegen_custom</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads" />
+            <field name="arch" type="xml">
+                <xpath expr="//kanban[1]" position="attributes">
+                    <attribute name="quick_create">false</attribute>
                 </xpath>
             </field>
         </record>
@@ -140,5 +159,102 @@
                 </xpath>
             </field>
         </record>
+
+        <record id="crm_lead_view_form" model="ir.ui.view">
+            <field name="name">crm.lead.form.inherit.wegen_custom</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='planned_revenue']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='planned_revenue']" position="after">
+                    <label for="estimated_kwp" string="Estimated kWp"/>
+                    <field name="estimated_kwp" string="Estimated kWp"/>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/div[not(@name)][1]/h2[1]/div[2]/div[1]/field[@name='probability']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='partner_name']" position="attributes">
+                    <attribute name="attrs">{"required": [["type","=","lead"]]}</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/div[1]/field[@name='street']" position="attributes">
+                    <attribute name="attrs">{"required": [["type","=","lead"]]}</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/div[1]/field[@name='city']" position="attributes">
+                    <attribute name="attrs">{"required": [["type","=","lead"]]}</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/div[1]/field[@name='state_id']" position="attributes">
+                    <attribute name="attrs">{"required": [["type","=","lead"]]}</attribute>
+                    <attribute name="placeholder">Region</attribute>
+                    <attribute name="string">Region</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/div[1]/field[@name='email_from']" position="attributes">
+                    <attribute name="attrs">{"required": [["type","=","lead"]], "invisible": [["partner_address_email","!=",False]]}</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name='phone']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[3]/field[@name='phone']" position="attributes">
+                    <attribute name="attrs">{"required": [["type","=","lead"]]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="attrs">{"readonly": [["quotation_count","&gt;=",1]]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='team_id']" position="attributes">
+                    <attribute name="attrs">{"readonly": [["quotation_count","&gt;=",1]]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='lost_reason']" position="before">
+                    <field name="company_id_1" string="Company" options="{'no_create':true}"/>
+                    <xpath expr="//form[1]/sheet[1]/group[1]/group[not(@name)][6]/field[@name='company_id']" position="move"/>
+                    <field name="set_default_company" string="Set Default Company" widget="boolean_toggle" attrs="{}" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='message_bounce']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='lead']" position="attributes">
+                    <attribute name="string">Contact Details</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[not(@name)][6]/field[@name='company_id']" position="attributes">
+                    <attribute name="attrs">{}</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_crm_case_opportunities_filter" model="ir.ui.view">
+            <field name="name">crm.lead.search.opportunity.inherit.wegen_custom</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='company']" position="replace">
+                    <filter context="{'group_by': 'company_id_1'}" name="studio_group_by_JnLzd" string="Company"/>
+                </xpath>
+                <xpath expr="//search[1]/group[1]/filter[@name='city']" position="after">
+                    <filter context="{'group_by': 'state_id'}" name="studio_group_by_FgBKl" string="Region"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_case_tree_view_oppor" model="ir.ui.view">
+            <field name="name">crm.lead.tree.opportunity.inherit.wegen_custom</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree[1]/field[@name='probability']" position="replace"/>
+                <xpath expr="//field[@name='planned_revenue']" position="replace">
+                    <field name="estimated_kwp" sum="Sum of Estimated kWp"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id'][not(ancestor::field)]" position="replace"/>
+                <xpath expr="//field[@name='estimated_kwp'][not(ancestor::field)]" position="after">
+                    <field name="company_id_1"/>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </odoo>

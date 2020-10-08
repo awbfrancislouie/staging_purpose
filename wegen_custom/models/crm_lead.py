@@ -14,9 +14,14 @@ class Wegen_Lead(models.Model):
 
     site_location_id = fields.Many2one('project.site', ondelete='restrict')
     site_location_id_required = fields.Boolean(compute='_compute_required_site_location')
-    x_studio_account_type = fields.Many2one('x_customer_account_type', )
+    account_type = fields.Many2one('sale.customer_account_type', 'Account Type')
+    company_id_1 = fields.Many2one('res.company', 'Company')
     project_code = fields.Char('Project Code')
     project_code_id = fields.Many2one('project.code.inventory', string='Project Code Inventory')
+
+    estimated_kwp = fields.Float('Estimated kWp', copied=True)
+    property_type = fields.Many2one('sale.customer_property_type', 'Property Type', copied=True)
+    set_default_company = fields.Boolean('Set Default Company')
 
     def _compute_required_site_location(self):
         retval = True
@@ -91,11 +96,11 @@ class Wegen_Lead(models.Model):
         if not self.site_location_id:
             raise ValidationError('Invalid Project Site. Please select a project site.')
 
-        if not self.x_studio_account_type:
+        if not self.account_type:
             raise ValidationError('Invalid Account Type. Please select an account type.')
 
         zip_code = self.site_location_id.zip_code
-        account_type = self.x_studio_account_type.x_code
+        account_type = self.account_type.code
         today = date.today()
         year = str(today.year)[:-2]
 
