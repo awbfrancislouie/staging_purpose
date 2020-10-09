@@ -52,7 +52,7 @@ update ir_model_data set name='field_sale_customer_market_type__name', module='w
 update ir_model_fields set name='name' where name='x_name' and model='sale.customer_market_type';
 
 update ir_model_data set name='action_view_market_type',module='wegen_custom',studio=null,noupdate=false where name='customer_market_type_679c277f-9334-40c9-8dfd-7cce9a953a2a';
-update ir_model_data set name='menu_sale_config_customer_property_type',module='wegen_custom',studio=null,noupdate=false where name='sales_customer_prope_c4db6b20-6541-48aa-8e9c-4bfec53ad6c7';
+update ir_model_data set name='menu_sale_config_customer_market_type',module='wegen_custom',studio=null,noupdate=false where name='sales_customer_marke_8fb4e96e-3a35-4680-9faa-24b280961c1a';
 
 update ir_model_data set name='view_customer_market_type_tree',module='wegen_custom',studio=null,noupdate=false where name='default_tree_view_fo_e8bbe4a6-b2cd-4dc1-84b5-3d77b7ced079';
 update ir_ui_view set name='sale.customer_market_type.tree' where name='Default tree view for x_customer_market_type';
@@ -70,6 +70,7 @@ UPDATE ir_model SET model = 'sale.customer_property_type', state = 'base' WHERE 
 update ir_model_data set name = 'model_sale_customer_property_type', module='wegen_custom',studio=null,noupdate=false where name = 'customer_property_ty_9bdfdef5-817e-47d1-9438-c155054387ab';
 update ir_ui_view set model='sale.customer_property_type' where model='x_customer_property_type';
 update ir_act_window set res_model='sale.customer_property_type' where res_model = 'x_customer_property_type';
+delete from ir_model_data where model='x_customer_property_type';
 update ir_model_data set model='sale.customer_property_type',module='wegen_custom',studio=null,noupdate=false where model='x_customer_property_type';
 
 update ir_model_fields set model='sale.customer_property_type' where model = 'x_customer_property_type';
@@ -77,10 +78,10 @@ update ir_model_fields set relation='sale.customer_property_type' where relation
 
 ALTER TABLE public.sale_customer_property_type RENAME COLUMN x_name TO "name";
 update ir_model_data set name='field_sale_customer_property_type__name', module='wegen_custom', studio=null,noupdate=false where name = 'name_customer_proper_130f4970-d073-4f99-a22c-bbc03ca36da2';
-update ir_model_fields set name='name' where name='x_name' and model='sale.customer_property_type';
+update ir_model_fields set name='x_name' where name='name' and model='sale.customer_property_type';
 
 update ir_model_data set name='action_view_property_type',module='wegen_custom',studio=null,noupdate=false where name='customer_property_ty_eb3c32b4-ffe2-4f27-ae95-abb48a2d5df2';
-update ir_model_data set name='menu_sale_config_customer_market_type',module='wegen_custom',studio=null,noupdate=false where name='sales_customer_marke_8fb4e96e-3a35-4680-9faa-24b280961c1a';
+update ir_model_data set name='menu_sale_config_customer_property_type',module='wegen_custom',studio=null,noupdate=false where name='sales_customer_prope_c4db6b20-6541-48aa-8e9c-4bfec53ad6c7';
 
 update ir_model_data set name='view_customer_property_type_form',module='wegen_custom',studio=null,noupdate=false where name='default_form_view_fo_54112a6a-ff6c-4bbe-bb93-89bb5311a680';
 update ir_ui_view set name='sale.customer_property_type.form' where name='Default form view for x_customer_property_type';
