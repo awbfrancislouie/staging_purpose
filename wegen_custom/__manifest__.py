@@ -34,6 +34,7 @@
         'views/sale_view.xml',
         'views/sales_customer_views.xml',
         'views/project_sites.xml',
+        'views/project_issue_views.xml',
         'views/views.xml',
     ],
     # only loaded in demonstration mode

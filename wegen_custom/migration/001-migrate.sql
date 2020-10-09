@@ -7,6 +7,8 @@ update ir_model_data set name = 'model_sale_customer_account_type', module='wege
 update ir_ui_view set model='sale.customer_account_type' where model='x_customer_account_type';
 update ir_act_window set res_model='sale.customer_account_type' where res_model = 'x_customer_account_type';
 delete from ir_model_data where model='x_customer_account_type';
+ALTER SEQUENCE x_customer_account_type_id_seq RENAME TO sale_customer_account_type_id_seq;
+
 
 update ir_model_fields set model='sale.customer_account_type' where model = 'x_customer_account_type';
 update ir_model_fields set relation='sale.customer_account_type' where relation = 'x_customer_account_type';
@@ -35,6 +37,7 @@ delete from ir_ui_view where name='Odoo Studio: Default form view for x_customer
 
 -- CUSTOMER MARKET TYPE
 ALTER TABLE x_customer_market_type RENAME TO sale_customer_market_type;
+ALTER SEQUENCE x_customer_market_type_id_seq RENAME TO sale_customer_market_type_id_seq;
 UPDATE ir_model SET model = 'sale.customer_market_type', state = 'base' WHERE model = 'x_customer_market_type';
 update ir_model_data set name = 'model_sale_customer_market_type', module='wegen_custom',studio=null,noupdate=false where name = 'customer_market_type_dc2eba18-4afa-4461-9a99-0fe8cdfea992';
 update ir_ui_view set model='sale.customer_market_type' where model='x_customer_market_type';
@@ -62,6 +65,7 @@ delete from ir_ui_view where name='Odoo Studio: Default form view for x_customer
 
 -- CUSTOMER PROPERTY TYPE
 ALTER TABLE x_customer_property_type RENAME TO sale_customer_property_type;
+ALTER SEQUENCE x_customer_property_type_id_seq RENAME TO sale_customer_property_type_id_seq;
 UPDATE ir_model SET model = 'sale.customer_property_type', state = 'base' WHERE model = 'x_customer_property_type';
 update ir_model_data set name = 'model_sale_customer_property_type', module='wegen_custom',studio=null,noupdate=false where name = 'customer_property_ty_9bdfdef5-817e-47d1-9438-c155054387ab';
 update ir_ui_view set model='sale.customer_property_type' where model='x_customer_property_type';
@@ -78,7 +82,6 @@ update ir_model_fields set name='name' where name='x_name' and model='sale.custo
 update ir_model_data set name='action_view_property_type',module='wegen_custom',studio=null,noupdate=false where name='customer_property_ty_eb3c32b4-ffe2-4f27-ae95-abb48a2d5df2';
 update ir_model_data set name='menu_sale_config_customer_market_type',module='wegen_custom',studio=null,noupdate=false where name='sales_customer_marke_8fb4e96e-3a35-4680-9faa-24b280961c1a';
 
-
 update ir_model_data set name='view_customer_property_type_form',module='wegen_custom',studio=null,noupdate=false where name='default_form_view_fo_54112a6a-ff6c-4bbe-bb93-89bb5311a680';
 update ir_ui_view set name='sale.customer_property_type.form' where name='Default form view for x_customer_property_type';
 delete from ir_model_data where name='odoo_studio_default__28b0b83a-dc38-4843-ade4-3339d68b0be4';
@@ -86,6 +89,7 @@ delete from ir_ui_view where name='Odoo Studio: Default form view for x_customer
 
 -- CUSTOMER SYSTEM TYPE
 ALTER TABLE x_customer_system_type RENAME TO sale_customer_system_type;
+ALTER SEQUENCE x_customer_system_type_id_seq RENAME TO sale_customer_system_type_id_seq;
 UPDATE ir_model SET model = 'sale.customer_system_type', state = 'base' WHERE model = 'x_customer_system_type';
 update ir_model_data set name = 'model_sale_customer_system_type', module='wegen_custom',studio=null,noupdate=false where name = 'customer_system_type_b86bef55-7f51-43f6-9441-590f315f4ab0';
 update ir_ui_view set model='sale.customer_system_type' where model='x_customer_system_type';
@@ -97,7 +101,7 @@ update ir_model_fields set relation='sale.customer_system_type' where relation =
 
 ALTER TABLE public.sale_customer_system_type RENAME COLUMN x_name TO "name";
 update ir_model_data set name='field_sale_customer_system_type__name', module='wegen_custom', studio=null where name = 'name_customer_system_eaa3373f-10d3-4af2-9892-61ab40f4d234';
-update ir_model_fields set name='x_name' where name='name' and model='sale.customer_system_type';
+update ir_model_fields set name='name' where name='x_name' and model='sale.customer_system_type';
 
 update ir_model_data set name='action_view_system_type',module='wegen_custom',studio=null,noupdate=false where name='customer_system_type_e53581ae-1931-455e-9c40-4cf995fe656b';
 update ir_model_data set name='menu_sale_config_customer_system_type',module='wegen_custom',studio=null,noupdate=false where name='sales_customer_syste_5f8ac79a-9061-402f-86c5-8dc40729efa3';
@@ -110,6 +114,7 @@ delete from ir_ui_view where name='Odoo Studio: Default form view for x_customer
 
 -- SOLAR PANEL TYPE
 ALTER TABLE x_solar_panel_types RENAME TO sale_solar_panel_type;
+ALTER SEQUENCE x_solar_panel_types_id_seq RENAME TO sale_solar_panel_type_id_seq;
 UPDATE ir_model SET model = 'sale.solar_panel_type', state = 'base' WHERE model = 'x_solar_panel_types';
 update ir_model_data set name = 'model_sale_solar_panel_type', module='wegen_custom',studio=null,noupdate=false where name = 'solar_panel_types_16dff6a2-753c-465d-aaf6-b3c7735d8afb';
 update ir_ui_view set model='sale.solar_panel_type' where model='x_solar_panel_types';
@@ -121,7 +126,7 @@ update ir_model_fields set relation='sale.solar_panel_type' where relation = 'x_
 
 ALTER TABLE public.sale_solar_panel_type RENAME COLUMN x_name TO "name";
 update ir_model_data set name='field_sale_solar_panel_type__name', module='wegen_custom', studio=null where name = 'name_solar_panel_typ_a995a51b-465f-466f-a6a5-6fca482dac59';
-update ir_model_fields set name='x_name' where name='name' and model='sale.solar_panel_type';
+update ir_model_fields set name='name' where name='x_name' and model='sale.solar_panel_type';
 
 ALTER TABLE public.sale_solar_panel_type RENAME COLUMN x_studio_capacity TO "capacity";
 update ir_model_data set name='field_sale_solar_panel_type__capacity', module='wegen_custom', studio=null where name = 'new_text_solar_panel_08dbd820-6458-470a-9dc8-a47232f857c6';
@@ -134,19 +139,6 @@ update ir_model_data set name='view_solar_panel_type_form',module='wegen_custom'
 update ir_ui_view set name='sale.solar_panel_type.form' where name='Default form view for x_solar_panel_types';
 delete from ir_model_data where name='odoo_studio_default__29728cfa-0bf4-4f68-97dd-d5548209a936 ';
 delete from ir_ui_view where name='Odoo Studio: Default form view for x_solar_panel_types customization';
-
--- CUSTOMER VIEWS
--- update ir_ui_view set arch_db='<?xml version="1.0"?>
--- <data><xpath expr="//field[@name=''user_id'']" position="before">
---                     <field name="site_location_id" attrs="{''readonly'': [(''project_code'', ''!='', False)], ''required'': [(''site_location_id_required'', ''='', True)]}"/>
---                     <field name="site_location_id_required" invisible="1"/>
---                 </xpath>
-                
---                 <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name=''phone'']" position="after">
---                 <field name="account_type" string="Account Type" options="{&quot;no_create&quot;:true}" attrs="{&quot;readonly&quot;: [[&quot;project_code&quot;,&quot;!=&quot;,False]], &quot;required&quot;: [[&quot;type&quot;,&quot;=&quot;,&quot;opportunity&quot;]]}" force_save="True"/>
---                 </xpath>
-                
---             </data>' where name='crm.lead.project_site.form';
 
 -- SALE ORDER
 ALTER TABLE public.sale_order RENAME COLUMN x_studio_account_type TO account_type;
@@ -199,7 +191,7 @@ update ir_model_data SET name='field_sale_order__panel_tier_1_count',module='weg
 update ir_model_fields set name='panel_tier_1_count' where name='x_studio_number_of_tier_1_panels' and model='sale.order';
 
 ALTER TABLE public.sale_order RENAME COLUMN x_studio_solar_panel_types TO solar_panel_type;
-update ir_model_data SET name='field_sale_order__solar_panel_type',module='wegen_custom',studio=null,noupdate=false where name='name_solar_panel_typ_a995a51b-465f-466f-a6a5-6fca482dac59';
+update ir_model_data SET name='field_sale_order__solar_panel_type',module='wegen_custom',studio=null,noupdate=false where name='solar_panel_types_sa_f10992d0-8a00-48bc-9705-88e80567c028';
 update ir_model_fields set name='solar_panel_type' where name='x_studio_solar_panel_types' and model='sale.order';
 
 ALTER TABLE public.sale_order RENAME COLUMN x_studio_state_id TO state_id;
@@ -212,7 +204,7 @@ update ir_model_fields set name='system_size',compute='for record in self:
   record[''system_size''] =(record.panel_tier_1_count)* float(record.capacity)' where name='x_studio_system_size_1' and model='sale.order';
 
 ALTER TABLE public.sale_order RENAME COLUMN x_studio_system_type TO system_type;
-update ir_model_data SET name='field_sale_order__system_type',module='wegen_custom',studio=null,noupdate=false where name='name_customer_system_eaa3373f-10d3-4af2-9892-61ab40f4d234';
+update ir_model_data SET name='field_sale_order__system_type',module='wegen_custom',studio=null,noupdate=false where name='customer_system_type_fe337234-b205-4dc5-828f-cac1400672de';
 update ir_model_fields set name='system_type' where name='x_studio_system_type' and model='sale.order';
 
 ALTER TABLE public.sale_order RENAME COLUMN x_studio_transaction_type TO transaction_type;
@@ -459,7 +451,7 @@ update ir_model_data SET name='field_sale_order__classification',module='wegen_c
 update ir_model_fields set name='classification' where name='x_studio_classification' and model='project.project';
 
 ALTER TABLE public.project_project RENAME COLUMN x_studio_employee_id TO employee_id;
-update ir_model_data SET name='field_project_project__employee_id',module='wegen_custom',studio=null,noupdate=false where name='studio_customization.employee_project_c4bbabb5-f0c9-48cf-bf03-aa58280af3e4';
+update ir_model_data SET name='field_project_project__employee_id',module='wegen_custom',studio=null,noupdate=false where name='employee_project_c4bbabb5-f0c9-48cf-bf03-aa58280af3e4';
 update ir_model_fields set name='employee_id' where name='x_studio_employee_id' and model='project.project';
 
 ALTER TABLE public.project_project RENAME COLUMN x_studio_vendor_id TO vendor_id;
@@ -503,7 +495,7 @@ update ir_model_data SET name='field_project_project__system_size',module='wegen
 update ir_model_fields set name='system_size',related='sale_order_id.system_size' where name='x_studio_system_size' and model='project.project';
 
 ALTER TABLE public.project_project RENAME COLUMN x_studio_installer_type TO installer_type;
-update ir_model_data SET name='field_project_project__installer_type',module='wegen_custom',studio=null,noupdate=false where name='';
+update ir_model_data SET name='field_project_project__installer_type',module='wegen_custom',studio=null,noupdate=false where name='new_selection_projec_3ec31620-b8d9-48af-84c0-6e4cb999b9dc';
 update ir_model_fields set name='installer_type' where name='x_studio_installer_type' and model='project.project';
 
 ALTER TABLE public.project_project RENAME COLUMN x_studio_project_actual_cost TO actual_cost;
@@ -519,7 +511,7 @@ update ir_model_data SET name='field_project_project__total_duration',module='we
 update ir_model_fields set name='total_duration',depends='planning_start_date,energized_end_date' where name='x_studio_total_project_duration' and model='project.project';
 
 ALTER TABLE public.project_project RENAME COLUMN x_studio_project_status TO state;
-update ir_model_data SET name='field_project_project__state',module='wegen_custom',studio=null,noupdate=false where name='new_selection_task_9d423321-5a34-44a8-b800-5597304640ba';
+update ir_model_data SET name='field_project_project__state',module='wegen_custom',studio=null,noupdate=false where name='pipeline_status_bar__3d5f9732-7cca-4b2d-b674-48312b0226fd';
 update ir_model_fields set name='state' where name='x_studio_project_status' and model='project.project';
 
 ALTER TABLE public.project_project RENAME COLUMN x_studio_project_template TO is_template;
@@ -1109,3 +1101,87 @@ update ir_ui_view set name='product_template_only_form_view',arch_db='<data>
         </xpath>
       </data>
 ' where name='Odoo Studio: product.template.product.form customization';
+
+
+-- ISSUE LOGS
+ALTER TABLE x_issue_logs RENAME TO project_issue_logs;
+ALTER SEQUENCE x_issue_logs_id_seq RENAME TO project_issue_logs_id_seq;
+UPDATE ir_model SET model = 'project.issue.logs', state = 'base' WHERE model = 'x_issue_logs';
+update ir_model_data set name = 'model_project_issue_logs', module='wegen_custom',studio=null,noupdate=false where name = 'issue_logs_4c436340-24f4-473a-a651-cf60ea9af86e';
+update ir_ui_view set model='project.issue.logs' where model='x_issue_logs';
+update ir_act_window set res_model='project.issue.logs' where res_model = 'x_issue_logs';
+delete from ir_model_data where model='x_issue_logs';
+
+update ir_model_fields set model='project.issue.logs' where model = 'x_issue_logs';
+update ir_model_fields set relation='project.issue.logs' where relation = 'x_issue_logs';
+
+ALTER TABLE public.project_issue_logs RENAME COLUMN x_name TO "name";
+update ir_model_data set name='field_project_issue_logs__name', module='wegen_custom', studio=null,noupdate=false where name = 'name_issue_logs_b9c1a1d3-4520-4562-b3cc-fe1e4d4c8351';
+update ir_model_fields set name='name' where name='x_name' and model='project.issue.logs';
+
+ALTER TABLE public.project_issue_logs RENAME COLUMN x_studio_project_id TO "project_id";
+update ir_model_data set name='field_project_issue_logs__project_id', module='wegen_custom', studio=null,noupdate=false where name = 'project_issue_logs_0b19c5ea-918c-4f88-9a69-4b5f4c59c87c';
+update ir_model_fields set name='project_id' where name='x_studio_project_id' and model='project.issue.logs';
+
+ALTER TABLE public.project_issue_logs RENAME COLUMN x_studio_issue_types TO "issue_type";
+update ir_model_data set name='field_project_issue_logs__issue_type', module='wegen_custom', studio=null,noupdate=false where name = 'issue_type_issue_log_3d00d0a8-70bd-4ab1-b625-a9ddeecbf0d9';
+update ir_model_fields set name='issue_type' where name='x_studio_issue_types' and model='project.issue.logs';
+
+ALTER TABLE public.project_issue_logs RENAME COLUMN x_studio_issue_description TO "description";
+update ir_model_data set name='field_project_issue_logs__description', module='wegen_custom', studio=null,noupdate=false where name = 'new_html_issue_logs_3caa210a-ee23-40f8-9bc0-9ead3aa335cc';
+update ir_model_fields set name='description' where name='x_studio_issue_description' and model='project.issue.logs';
+
+ALTER TABLE public.project_issue_logs RENAME COLUMN x_studio_date_logged TO "logged_date";
+update ir_model_data set name='field_project_issue_logs__logged_date', module='wegen_custom', studio=null,noupdate=false where name = 'new_date_issue_logs_22fe4fe6-8022-4486-b69f-8fcd976341db';
+update ir_model_fields set name='logged_date' where name='x_studio_date_logged' and model='project.issue.logs';
+
+ALTER TABLE public.project_issue_logs RENAME COLUMN x_studio_date_resolved TO "resolved_date";
+update ir_model_data set name='field_project_issue_logs__resolved_date', module='wegen_custom', studio=null,noupdate=false where name = 'new_date_issue_logs_4c3bbfb7-01c1-42c6-a7b5-4c3ef0bb50d1';
+update ir_model_fields set name='resolved_date' where name='x_studio_date_resolved' and model='project.issue.logs';
+
+ALTER TABLE public.project_issue_logs RENAME COLUMN x_studio_issue_status TO "state";
+update ir_model_data set name='field_project_issue_logs__state', module='wegen_custom', studio=null,noupdate=false where name = 'pipeline_status_bar__b61d877d-a068-4495-a900-de16bb076f40';
+update ir_model_fields set name='state' where name='x_studio_issue_status' and model='project.issue.logs';
+
+ALTER TABLE x_issue_type RENAME TO project_issue_type;
+ALTER SEQUENCE x_issue_type_id_seq RENAME TO project_issue_type_id_seq;
+UPDATE ir_model SET model = 'project.issue.type', state = 'base' WHERE model = 'x_issue_type';
+update ir_model_data set name = 'model_project_issue_type', module='wegen_custom',studio=null,noupdate=false where name = 'issue_type_d01011d7-9ab9-4fa2-aa8e-c32c65e25261';
+update ir_ui_view set model='project.issue.type' where model='x_issue_type';
+update ir_act_window set res_model='project.issue.type' where res_model = 'x_issue_type';
+update ir_model_fields set relation='project.issue.type' where relation='x_issue_type';
+delete from ir_model_data where model='x_issue_type';
+
+update ir_model_fields set model='project.issue.type' where model = 'x_issue_type';
+update ir_model_fields set relation='project.issue.type' where relation = 'x_issue_type';
+
+ALTER TABLE public.project_issue_type RENAME COLUMN x_name TO "name";
+update ir_model_data set name='field_project_issue_type__name', module='wegen_custom', studio=null,noupdate=false where name = 'name_issue_type_a215e78f-797f-4d7f-9fb1-82497fb1b92e';
+update ir_model_fields set name='name' where name='x_name' and model='project.issue.type';
+
+
+
+
+update ir_model_data set name='menu_module_issue_logs',module='wegen_custom',studio=null,noupdate=false where name='issue_logs_f79c4b58-991b-4857-8ea7-345891aba21e';
+update ir_model_data set name='menu_view_project_issue_logs',module='wegen_custom',studio=null,noupdate=false where name='issue_logs_issue_log_157d8ccf-cb96-4408-bb26-13784d1f146a';
+update ir_model_data set name='menu_view_project_issue_config',module='wegen_custom',studio=null,noupdate=false where name='issue_logs_configura_87f9ec72-c92a-4028-9514-e0a1bde95d81';
+update ir_model_data set name='menu_view_project_issue_type',module='wegen_custom',studio=null,noupdate=false where name='issue_logs_issue_typ_2b092e04-925e-4331-9d1c-b721a5f79b21';
+update ir_model_data set name='act_project_issue_logs',module='wegen_custom',studio=null,noupdate=false where name='issue_logs_b33d2a5b-74b5-42ec-9651-66bce463347c';
+update ir_model_data set name='act_project_issue_type',module='wegen_custom',studio=null,noupdate=false where name='issue_types_b8383b92-2437-42a1-8adc-12207d5cc7e5';
+update ir_model_data set name='act_project_issue_logs_view',module='wegen_custom',studio=null,noupdate=false where name='issues_85e77f04-83d2-4ba3-9c1d-7df9c38545c4';
+
+update ir_model_data set name='view_project_issue_logs_tree',module='wegen_custom',studio=null,noupdate=false where name='default_tree_view_fo_d3f74661-6ce8-4187-8ebf-3b27f1de029c';
+update ir_ui_view set name='project.issue.logs.tree' where name='Default tree view for x_issue_logs';
+delete from ir_model_data where name='odoo_studio_default__fdc1276b-2162-4e52-bd40-7a3442b57035';
+delete from ir_ui_view where name='Odoo Studio: Default tree view for x_issue_logs customization';
+
+
+update ir_model_data set name='view_project_issue_logs_form',module='wegen_custom',studio=null,noupdate=false where name='default_form_view_fo_e2455019-f004-41ed-8051-180f94a5fba2';
+update ir_ui_view set name='project.issue.logs.form' where name='Default form view for x_issue_logs';
+delete from ir_model_data where name='odoo_studio_default__658e43dc-27c8-4160-a09a-666309e3bcc4';
+delete from ir_ui_view where name='Odoo Studio: Default form view for x_issue_logs customization';
+
+update ir_model_data set name='view_project_issue_type_form',module='wegen_custom',studio=null,noupdate=false where name='default_form_view_fo_94e31ee7-a112-4b34-bf3a-30b1e932fd0e';
+update ir_ui_view set name='project.issue.type.form' where name='Default form view for x_issue_type';
+delete from ir_model_data where name='odoo_studio_default__eb1a540e-83c5-4fd3-a2b1-ca9f806867fe';
+delete from ir_ui_view where name='Odoo Studio: Default form view for x_issue_type customization';

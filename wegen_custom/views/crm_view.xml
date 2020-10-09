@@ -132,7 +132,7 @@
                 <xpath expr="//progressbar[@field='activity_state']" position="attributes">
                     <attritbute name="sum_field">estimated_kwp</attritbute>
                 </xpath>
-                <xpath expr="//strong[@class='o_kanban_record_title']" position="after">
+                <xpath expr="//field[@name='tag_ids']" position="after">
                     <field name="project_code"/>
                 </xpath>
             </field>
