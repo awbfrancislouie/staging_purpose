@@ -191,7 +191,7 @@
       <field name="inherit_id" ref="project.view_task_kanban" />
       <field name="arch" type="xml">
         <xpath expr="//kanban[1]" position="attributes">
-          <attribute name="quick_create">false</attribute>
+          <!-- <attribute name="quick_create">false</attribute> -->
         </xpath>
       </field>
     </record>
