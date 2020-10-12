@@ -20,7 +20,7 @@
     'version': '13.0.2.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'crm', 'project', 'sale_management', 'sale_timesheet'],
+    'depends': ['base', 'crm', 'project', 'project_forecast', 'sale_management', 'sale_timesheet'],
 
     # always loaded
     'data': [
