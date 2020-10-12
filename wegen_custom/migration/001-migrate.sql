@@ -1227,3 +1227,4 @@ update ir_model_data set name='access_customer_system_type_system',module='wegen
 update ir_model_data set name='access_customer_system_type_user',module='wegen_custom',studio=null,noupdate=false where name='customer_system_type_1dba60ac-f1dd-4ec8-bcf6-9b8fd71133ce';
 update ir_model_data set name='access_solar_panel_type_system',module='wegen_custom',studio=null,noupdate=false where name='solar_panel_types_gr_f3fe7975-6bef-47b8-bc8c-e6f7c488ce04';
 update ir_model_data set name='access_solar_panel_type_user',module='wegen_custom',studio=null,noupdate=false where name='solar_panel_types_gr_882fd4ca-d369-44fd-b303-c86cde772dc4';
+
