@@ -1,0 +1,369 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record id="popa_template_paper" model="report.paperformat">
+    <field name="header_line" eval="False"/>
+    <field name="default" eval="False"/>
+    <field name="margin_top">25.0</field>
+    <field name="print_page_width">210</field>
+    <field name="margin_bottom">25.0</field>
+    <field name="dpi">90</field>
+    <field name="margin_right">15.0</field>
+    <field name="print_page_height">297</field>
+    <field name="page_height" eval="False"/>
+    <field name="display_name">POPA Template A4</field>
+    <field name="header_spacing">35</field>
+    <field name="name">POPA Template - A4</field>
+    <field name="orientation">Portrait</field>
+    <field name="format">A4</field>
+    <field name="margin_left">15.0</field>
+    <field name="page_width" eval="False"/>
+  </record>
+
+  <record id="popa_report_installment_report" model="ir.actions.report">
+    <field name="name">POPA-INSTALLMENT</field>
+    <field name="report_name">wegen_custom.popa_report_installment_main_report</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="paperformat_id" ref="popa_template_paper"/>
+    <field name="attachment" eval="False"/>
+    <field name="attachment_use" eval="False"/>
+    <field name="binding_model_id" ref="sale.model_sale_order"/>
+    <field name="binding_type">report</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="model">sale.order</field>
+    <field name="multi" eval="False"/>
+  </record>
+
+
+  <record id="popa_report_installment_main_report" model="ir.ui.view">
+    <field name="name">popa_report_installment_main_report_document</field>
+    <field name="model" eval="False"/>
+    <field name="mode">primary</field>
+    <field name="key">popa_report_installment_main_report_document</field>
+    <field name="arch" type="xml">
+      <t t-name="main_report">
+          <t t-call="web.basic_layout">
+              <t t-foreach="docs" t-as="doc">
+                  <t t-name="report_document">
+                    <div class="page">
+                      <div>
+                        <div class="row">
+                          <div class="col-4 float-left" style="width: 30%;height: 120px;">
+                            <img src="/wegen_custom/static/src/img/wegen-popa.png" class="float-left" style="max-height:80px"/>
+                            <p>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <strong>DATE: <span t-field="doc.date_order"/></strong>
+                            </p>
+                          </div>
+                          <div class="col-1"/>
+                          <div class="col-7 float-right text-center h5">
+                            <p style="background-color:#9ACD32;text-format:bold; margin:10 0 0 10; vertical-align:middle;">
+                              <strong><br/>
+                                          PROJECT OFFER
+                                          <br/>
+                                          and
+                                          <br/>
+                                          INSTALLMENT PURCHASE AGREEMENT
+                                          <br/> <br/>
+                                          
+                              </strong>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <!--1st table-->
+                      <div>
+                        <br/>
+                        <div>
+                          <table border="1" width="100%" style="text-align:center;border: 1px solid black;">
+                            <tr style="border: 1px solid black;">
+                              <th rowspan="2" width="30%" style="background-color:#A9A9A9; vertical-align:middle;">
+                                          <strong>PROJECT <br/> INFORMATION</strong>
+                                      </th>
+                              <td width="35%" style="border: 1px solid black;">
+                                          <strong>Project Offeror</strong>
+                                          <br/>
+                                          <span t-field="doc.company_id.name"/>
+                                      </td>
+                              <td width="35%" style="border: 1px solid black;">
+                                          <strong>Customer Name</strong>
+                                          <br/>
+                                          <span t-field="doc.partner_id.name"/>
+                                      </td>
+                            </tr>
+                            <tr>
+                              <td width="35%" style="border: 1px solid black;">
+                                          <strong>Project Name (Site)</strong>
+                                          <br/>
+                                          <span t-field="doc.project_code"/>
+                                      </td>
+                              <td width="35%" style="border: 1px solid black;">
+                                  <strong>Project Address</strong>
+                                  <br/>
+                                  <span t-field="doc.partner_id.contact_address_complete"/>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                      <!--2nd table-->
+                      <div>
+                        <br/>
+                        <div>
+                          <table border="1" width="100%" style="text-align:center;border: 1px solid black;">
+                            <tr>
+                              <th rowspan="2" width="30%" style="background-color:#A9A9A9;">
+                                          <strong>SOLAR PV SYSTEM 
+                                          <br/> Major Components</strong> 
+                                          <br/>
+                                          <span t-field="doc.system_size"/> kWp
+                                      </th>
+                              <td width="35%" style="border: 1px solid black;">
+                                         <strong>System Type</strong>
+                                          <br/>
+                                          <span t-field="doc.customer_system_type"/>
+                                      </td>
+                              <td width="35%" style="border: 1px solid black;">
+                                          <strong>Number of Tier 1 Panels</strong>
+                                          <br/>
+                                          <span t-field="doc.panel_tier_1_count"/>
+                                      </td>
+                            </tr>
+                            <tr>
+                              <td width="35%" style="border: 1px solid black;">
+                                          <strong>Number of Inverters</strong>
+                                          <br/>
+                                          <span t-field="doc.inverter_count"/> units
+                                      </td>
+                              <td width="35%" style="border: 1px solid black;">
+                                          <strong>Batteries</strong>
+                                          <br/>
+                                          <span t-field="doc.batteries"/>
+                                      </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                      <!--3rd table-->
+                      <div>
+                        <br/>
+                        <div>
+                          <table border="1" width="100%" style="border: 1px solid black;">
+                            <tr style="text-align:center;background-color:#A9A9A9" width="25%">
+                              <th>
+                                  PAYMENT PLAN
+                              </th>
+                              <th>
+                                  CONTRACT PRICE
+                              </th>
+                              <th>
+                                  PAYMENT TERMS
+                              </th>
+                            </tr>
+                            <tr width="35%" style="border: 1px solid black;">
+                              <td style="text-align:center;border: 1px solid black;">
+                                          Down Payment
+                                      </td>
+                              <td style="text-align:center;border: 1px solid black;"/>
+                              <td style="text-align:left;border: 1px solid black;">
+                                 <span style="margin-left:10px;">Percentage: <span t-field="doc.downpayment_rate"/>%</span>
+                                 <span style="margin-left:10px;">Amount: <strong><span t-field="doc.downpayment"/></strong></span>
+                                 
+                              </td>
+                            </tr>
+                            <tr width="35%" style="border: 1px solid black;">
+                              <td style="text-align:center;border: 1px solid black;">
+                                  <span t-field="doc.payment_term_id"/> Installment
+                                      </td>
+                              <td style="text-align:center;border: 1px solid black;">
+                                <strong><span t-field="doc.amount_total"/></strong>
+                              </td>
+                              <td style="text-align:left;border: 1px solid black;">
+                                <span style="margin-left:10px;"> Monthly Amortization: <strong><span t-field="doc.monthly_amortization"/></strong> </span>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                      <!--Qoute-->
+                      <div>
+                        <div style="text-align:center; text-format:italic;font-size:12px;" width="50%">
+                          <i>
+                                  Quoted prices are valid for thirty (30) days from receipt of this offer.Prices are VAT-inclusive.<br/>
+                  Unless otherwise indicated, a down payment is non-refundable.
+                              </i>
+                        </div>
+                      </div>
+                      <!--4th table-->
+                      <div>
+                        <br/>
+                        <div>
+                          <table border="1" width="100%" style="border: 1px solid black;">
+                            <tr>
+                              <th style="text-align:center;background-color:#A9A9A9; vertical-align:middle;" width="30%">
+                                  ANNEXES
+                              </th>
+                              <td width="70%">
+                                  
+                                   <span t-field="doc.annex_description"/>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                      <div>
+                        <div style="text-align:center; text-format:italic;font-size:12px;">
+                          <i>
+                  The attached Terms and Conditions and any Annexes agreed by the parties are incorporated herein. By signing below, Customer <br/> 
+                  accepts to be bound by this Project Offer and Purchase Agreement, including the attached Terms and Conditions and any Annexes.
+                              </i>
+                        </div>
+                      </div>
+                      <!--5TH table-->
+                      <div>
+                        <br/>
+                        <strong>SIGNATURES</strong>
+                        <div>
+                          <table border="1" width="100%" style="border: 1px solid black;">
+                            <tr>
+                              <th style="text-align:center;background-color:#A9A9A9; border-bottom:1px solid #A9A9A9;" width="20%">
+                                <strong>WeGen</strong>
+                              </th>
+                              <td style="text-align:center;" width="30%"/>
+                              <th style="text-align:center;background-color:#A9A9A9; border-bottom:1px solid #A9A9A9;" width="20%">
+                                <strong>CUSTOMER</strong>
+                              </th>
+                              <td style="text-align:center;" width="30%"/>
+                            </tr>
+                            
+                            <tr style="font-size:16px;">
+                              <th style="text-align:center;background-color:#A9A9A9; border-bottom:1px solid #A9A9A9;" width="20%">
+                                  <br/>
+                                          Signature <br/> Printed Name <br/> Title
+                                      </th>
+                              <td style="text-align:center;" width="30%">
+                                  <br/>
+                                  _____________________________
+                                  <br/>
+                                  <span t-field="doc.authorized_signatory.name"/>
+                                  <br/>
+                                  <span t-field="doc.authorized_signatory.partner_id.function"/>
+                              </td>
+                              <th style="text-align:center;background-color:#A9A9A9; border-bottom:1px solid #A9A9A9;" width="20%">
+                                  <br/>
+                                  Signature <br/> Printed Name <br/> Title
+                              </th>
+                              <td style="text-align:center;" width="30%">
+                                  <br/>
+                                  _____________________________ <br/>
+                                  <span t-field="doc.partner_id.authorized_partner_signatory.name"/>
+                                  <br/>
+                                  <span t-field="doc.partner_id.authorized_partner_signatory.function"/>
+                              </td>
+                            </tr>
+                            
+                            <tr style="font-size:16px;">
+                              <th style="text-align:center;background-color:#A9A9A9; border-bottom:1px solid #A9A9A9;" width="20%">
+                                  <br/>
+                                          Address
+                                      </th>
+                              <td style="text-align:center;" width="30%">
+                                  <br/>
+                                  <span t-field="doc.company_id.partner_id.contact_address_complete" style="font-size:10px;"/>
+                              </td>
+                              <th style="text-align:center;background-color:#A9A9A9; border-bottom:1px solid #A9A9A9;" width="20%">
+                                  <br/>
+                                          <p style="font-size:15px;">Billing Contact Person<br/> Title</p>
+                                      </th>
+                              <td style="text-align:center;" width="30%"><br/>
+                                  <span t-field="doc.partner_id.billing_partner_contact.name"/>
+                              </td>
+                            </tr>
+                            
+                            <tr style="font-size:16px;">
+                              <th style="text-align:center;background-color:#A9A9A9; border-bottom:1px solid #A9A9A9;" width="20%"/>
+                              <td style="text-align:center;" width="30%"/>
+                              <th style="text-align:center;background-color:#A9A9A9; border-bottom:1px solid #A9A9A9;" width="20%">
+                                          Billing Address
+                                      </th>
+                              <td style="text-align:center;" width="30%">
+                                  <span t-field="doc.partner_id.billing_partner_contact.contact_address_complete" style="font-size:10px;"/>
+                              </td>
+                            </tr>
+                            
+                            <tr style="font-size:16px;">
+                              <th style="text-align:center;background-color:#A9A9A9; border-bottom:1px solid #A9A9A9;" width="20%">
+                                          Contact Number
+                                      </th>
+                              <td style="text-align:center;" width="30%">
+                                  <span t-field="doc.company_id.phone"/>
+                              </td>
+                              <th style="text-align:center;background-color:#A9A9A9; border-bottom:1px solid #A9A9A9;" width="20%">
+                                          Contact Number
+                                      </th>
+                              <td style="text-align:center;" width="30%">
+                                  <span t-field="doc.partner_id.billing_partner_contact.phone"/>
+                              </td>
+                            </tr>
+                            
+                            <tr style="font-size:16px;">
+                              <th style="text-align:center;background-color:#A9A9A9; border-bottom:1px solid #A9A9A9;" width="20%">
+                                          Date
+                                      </th>
+                              <td style="text-align:center;" width="30%"/>
+                              <th style="text-align:center;background-color:#A9A9A9; border-bottom:1px solid #A9A9A9;" width="20%">
+                                          Date
+                                      </th>
+                              <td style="text-align:center;" width="30%"/>
+                            </tr>
+                            
+                            <tr style="font-size:16px;">
+                              <th style="text-align:center;background-color:#A9A9A9;" width="20%">
+                                  <br/>
+                                  Witness Signature <br/> Printed Name <br/> Title
+                              </th>
+                                  <td style="text-align:center;" width="30%">
+                                      <br/>
+                                  _____________________________
+                              </td>
+                              <th style="text-align:center;background-color:#A9A9A9;" width="20%">
+                                  <br/>
+                                  Witness Signature <br/> Printed Name <br/> Title
+                              </th>
+                                  <td style="text-align:center;" width="30%">
+                                      <br/>
+                                  _____________________________
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                      <!--footer-->
+                      <div>
+                          <br/>
+                          <p style="text-align:center;font-size:14px; color:#A9A9A9;">
+                              <i>
+                                  <span t-field="doc.company_id.partner_id.contact_address_complete"/>
+                                  •
+                                  <span t-field="doc.company_id.partner_id.phone"/>
+                                  •
+                                  <span t-field="doc.company_id.partner_id.email"/>
+                                  •
+                                  <span t-field="doc.company_id.partner_id.website"/>
+                                  
+                              </i>
+                          </p>
+                      </div>
+                    </div>
+                  </t>
+              </t>
+          </t>
+      </t>
+    </field>
+    <field name="priority">16</field>
+    <field name="type">qweb</field>
+  </record>
+</odoo>

@@ -1186,3 +1186,44 @@ update ir_model_data set name='view_project_issue_type_form',module='wegen_custo
 update ir_ui_view set name='project.issue.type.form' where name='Default form view for x_issue_type';
 delete from ir_model_data where name='odoo_studio_default__eb1a540e-83c5-4fd3-a2b1-ca9f806867fe';
 delete from ir_ui_view where name='Odoo Studio: Default form view for x_issue_type customization';
+
+
+update ir_model_data set module='wegen_custom',studio=null,noupdate=false where name='open_view_project_all';
+update ir_model_data set name='open_view_project_all_form',module='wegen_custom',studio=null,noupdate=false where name='false_61e5339a-f5a8-4b8b-b947-0a78b12844b1';
+update ir_model_data set name='open_view_project_all_tree',module='wegen_custom',studio=null,noupdate=false where name='false_e1660123-5590-4fd8-9a62-268f0a4f2d92';
+update ir_model_data set name='open_view_project_all_kanban',module='wegen_custom',studio=null,noupdate=false where name='project_project_kanb_1268b8b6-c07b-48da-854d-e91e04419ee6';
+
+update ir_model_data set module='wegen_custom',studio=null,noupdate=false where name='action_quotations_with_onboarding';
+update ir_model_data set name='open_issue_logs_window',module='wegen_custom',studio=null,noupdate=false where name='issue_logs_b33d2a5b-74b5-42ec-9651-66bce463347c';
+update ir_model_data set name='open_issue_types_window',module='wegen_custom',studio=null,noupdate=false where name='issue_types_b8383b92-2437-42a1-8adc-12207d5cc7e5';
+update ir_model_data set name='open_issue_logs_project',module='wegen_custom',studio=null,noupdate=false where name='issues_85e77f04-83d2-4ba3-9c1d-7df9c38545c4';
+update ir_model_data set name='sale_order_view_pricelists',module='wegen_custom',studio=null,noupdate=false where name='pricelists_ef20ee42-1676-49f1-823f-5b625e6f47f0';
+
+
+update ir_model_data set name='popa_template_paper',module='wegen_custom',studio=null,noupdate=false where name='popa_template_585709e1-8efe-4efb-91cb-ef16e0143662';
+update ir_model_data set name='popa_report_installment_report',module='wegen_custom',studio=null,noupdate=false where name='sales_order_report_31c8c974-38cc-4b42-b1ff-d28751c1057b';
+delete from ir_model_data where name = 'studio_report_docume_6df05232-4bac-434b-8b7e-1ff65c1c676e';
+delete from ir_model_data where name = 'studio_main_report_afde8a1d-8035-4680-86b4-89ef8fdd7cc6';
+delete from ir_model_data where name = 'odoo_studio_studio_c_37f04383-18f9-4b94-8d31-a77ab62dd84e';
+
+update ir_model_data set name='popa_report_outright_report',module='wegen_custom',studio=null,noupdate=false where name='sales_order_report_6d42b5c1-b364-436b-a915-6cad28e3079b';
+delete from ir_model_data where name = 'studio_report_docume_913757cd-f152-49f9-ba36-41c851ed0324';
+delete from ir_model_data where name = 'studio_main_report_d7946ff8-1c51-4495-8da5-3c35e0c6f58b';
+delete from ir_model_data where name = 'odoo_studio_studio_c_1ae4bcbe-ed56-4eec-8d17-0859f56003bd';
+
+
+
+update ir_model_data set name='access_issue_logs_system',module='wegen_custom',studio=null,noupdate=false where name='issue_logs_group_sys_e100dffe-92c6-4116-bd98-22245140b4b9';
+update ir_model_data set name='access_issue_logs_user',module='wegen_custom',studio=null,noupdate=false where name='issue_logs_group_use_c42d482c-520f-4b52-991b-1a3dacb554a8';
+update ir_model_data set name='access_issue_type_system',module='wegen_custom',studio=null,noupdate=false where name='issue_type_group_sys_698d9355-a2d4-48db-850b-36764cd9e23c';
+update ir_model_data set name='access_issue_type_user',module='wegen_custom',studio=null,noupdate=false where name='issue_type_group_use_aaaac330-69bf-4bce-a1b4-05c610388f2b';
+update ir_model_data set name='access_customer_market_type_system',module='wegen_custom',studio=null,noupdate=false where name='customer_market_type_cf610bfd-9ae7-4b34-986b-4bd2ee8e001a';
+update ir_model_data set name='access_customer_market_type_user',module='wegen_custom',studio=null,noupdate=false where name='customer_market_type_cd0a85bf-b94e-44e0-8b62-1ad79a2413e5';
+update ir_model_data set name='access_customer_account_type_system',module='wegen_custom',studio=null,noupdate=false where name='customer_account_typ_774b2c02-3d28-4f02-9ef9-f9e91c52e95c';
+update ir_model_data set name='access_customer_account_type_user',module='wegen_custom',studio=null,noupdate=false where name='customer_account_typ_8068052f-6c91-4c5a-8674-f6055e29cb0e';
+update ir_model_data set name='access_customer_property_type_system',module='wegen_custom',studio=null,noupdate=false where name='customer_property_ty_c83fd268-cfda-4c0a-a5ae-cdfb64e1099c';
+update ir_model_data set name='access_customer_property_type_user',module='wegen_custom',studio=null,noupdate=false where name='customer_property_ty_f585cd8d-0a3a-41f9-b43f-14d6900adbd7';
+update ir_model_data set name='access_customer_system_type_system',module='wegen_custom',studio=null,noupdate=false where name='customer_system_type_8354c8c5-0624-4df2-8d36-d44c49a0ffa6';
+update ir_model_data set name='access_customer_system_type_user',module='wegen_custom',studio=null,noupdate=false where name='customer_system_type_1dba60ac-f1dd-4ec8-bcf6-9b8fd71133ce';
+update ir_model_data set name='access_solar_panel_type_system',module='wegen_custom',studio=null,noupdate=false where name='solar_panel_types_gr_f3fe7975-6bef-47b8-bc8c-e6f7c488ce04';
+update ir_model_data set name='access_solar_panel_type_user',module='wegen_custom',studio=null,noupdate=false where name='solar_panel_types_gr_882fd4ca-d369-44fd-b303-c86cde772dc4';

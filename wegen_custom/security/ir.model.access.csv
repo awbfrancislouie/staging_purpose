@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_issue_logs_system,Issue Logs group_system,model_project_issue_logs,base.group_system,1,1,1,1
+access_issue_logs_user,Issue Logs group_user,model_project_issue_logs,base.group_user,1,1,1,1
+access_issue_type_system,Issue Type group_system,model_project_issue_type,base.group_system,1,1,1,1
+access_issue_type_user,Issue Type group_user,model_project_issue_type,base.group_user,1,0,0,0
+access_customer_market_type_system,Customer Market Type group_system,model_sale_customer_market_type,base.group_system,1,1,1,1
+access_customer_market_type_user,Customer Market Type group_user,model_sale_customer_market_type,base.group_user,1,0,0,0
+access_customer_account_type_system,Customer Account Type group_system,model_sale_customer_account_type,base.group_system,1,1,1,1
+access_customer_account_type_user,Customer Account Type group_user,model_sale_customer_account_type,base.group_user,1,0,0,0
+access_customer_property_type_system,Customer Property Type group_system,model_sale_customer_property_type,base.group_system,1,1,1,1
+access_customer_property_type_user,Customer Property Type group_user,model_sale_customer_property_type,base.group_user,1,0,0,0
+access_customer_system_type_system,Customer System Type group_system,model_sale_customer_system_type,base.group_system,1,1,1,1
+access_customer_system_type_user,Customer System Type group_user,model_sale_customer_system_type,base.group_user,1,0,0,0
+access_solar_panel_type_system,Solar Panel Type group_system,model_sale_solar_panel_type,base.group_system,1,1,1,1
+access_solar_panel_type_user,Solar Panel Type group_user,model_sale_solar_panel_type,base.group_user,1,0,0,0
+

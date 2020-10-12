@@ -24,7 +24,7 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/task.xml',
         'views/payment_terms.xml',
         'views/product_template_views.xml',
@@ -36,6 +36,8 @@
         'views/project_sites.xml',
         'views/project_issue_views.xml',
         'views/views.xml',
+        'views/popa_report_installment.xml',
+        'views/popa_report_outright.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
