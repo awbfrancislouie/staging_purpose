@@ -43,7 +43,7 @@ class Wegen_Sales(models.Model):
 
     state_id = fields.Char('Region', related='partner_id.state_id.name')
 
-    system_size = fields.Float('System Size', readonly=True)
+    system_size = fields.Float('System Size', readonly=True, compute='_compute_system_size')
     system_type = fields.Many2one('sale.customer_system_type', 'System Type')
 
     transaction_type = fields.Selection([('installation', 'Installation'),
@@ -68,6 +68,11 @@ class Wegen_Sales(models.Model):
             order.power_amount = power
             order.delivery_amount = delivery
             order.turn_over_amount = turn_over
+
+    @api.depends('panel_tier_1_count', 'capacity')
+    def _compute_system_size(self):
+        for record in self:
+            record.system_size = record.panel_tier_1_count * float(record.capacity)
 
     @api.constrains('downpayment_rate')
     def _check_downpayment_rate(self):
