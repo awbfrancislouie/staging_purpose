@@ -66,25 +66,7 @@
     </record>
 
 
-    <record id="view_project" model="ir.ui.view">
-       <field name="name">project.project.tree.inherit.wegen_custom</field>
-       <field name="model">project.project</field>
-       <field name="inherit_id" ref="project.view_project" />
-       <field name="arch" type="xml">
-          <xpath expr="//tree[1]/field[@name='name']" position="after">
-             <field name="state" />
-          </xpath>
-          <xpath expr="//field[@name='user_id']" position="after">
-             <xpath expr="//field[@name='company_id']" position="move" />
-             <field name="budget" sum="Sum of Project Budget Cost" string="Project Budget Cost" widget="monetary" />
-             <field name="actual_cost" sum="Sum of Project Actual Cost" string="Project Actual Cost" />
-             <field name="system_size" sum="Sum of System Size" widget="float" string="System Size (kWp)" />
-             <field name="currency_id" attrs="{}" invisible="1" />
-          </xpath>
-       </field>
-    </record>
-
-    <record id="project_view_kanban" model="ir.ui.view">
+    <record id="project_view_kanban_wegen_custom" model="ir.ui.view">
        <field name="name">project.project.kanban.inherit.wegen_custom</field>
        <field name="model">project.project</field>
        <field name="inherit_id" ref="project.project_view_kanban" />
