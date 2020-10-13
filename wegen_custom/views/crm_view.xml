@@ -138,13 +138,16 @@
             </field>
         </record>
 
-        <record id="crm_case_kanban_view_leads" model="ir.ui.view">
+        <record id="crm_case_kanban_view_leads_wegen_custom" model="ir.ui.view">
             <field name="name">crm.lead.kanban.lead.inherit.wegen_custom</field>
             <field name="model">crm.lead</field>
             <field name="inherit_id" ref="crm.crm_case_kanban_view_leads" />
             <field name="arch" type="xml">
                 <xpath expr="//kanban[1]" position="attributes">
                     <!-- <attribute name="quick_create">false</attribute> -->
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field display="full" name="estimated_kwp"/>
                 </xpath>
             </field>
         </record>
@@ -160,7 +163,7 @@
             </field>
         </record>
 
-        <record id="crm_lead_view_form" model="ir.ui.view">
+        <record id="crm_lead_view_form_wegen_custom" model="ir.ui.view">
             <field name="name">crm.lead.form.inherit.wegen_custom</field>
             <field name="model">crm.lead</field>
             <field name="inherit_id" ref="crm.crm_lead_view_form"/>
@@ -240,7 +243,7 @@
             </field>
         </record>
 
-        <record id="crm_case_tree_view_oppor" model="ir.ui.view">
+        <record id="crm_case_tree_view_oppor_wegen_custom" model="ir.ui.view">
             <field name="name">crm.lead.tree.opportunity.inherit.wegen_custom</field>
             <field name="model">crm.lead</field>
             <field name="inherit_id" ref="crm.crm_case_tree_view_oppor" />

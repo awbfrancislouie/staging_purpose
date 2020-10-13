@@ -764,7 +764,7 @@ update ir_model_data SET name='field_crm_lead__set_default_company',module='wege
 update ir_model_fields set name='set_default_company' where name='x_studio_set_default_company' and model='crm.lead';
 
 
-update ir_model_data set name='crm_lead_view_form', module='wegen_custom',studio=null,noupdate=false where name='odoo_studio_crm_lead_d012c162-a395-4b64-bc5f-008bf2a03058';
+update ir_model_data set name='crm_lead_view_form_wegen_custom', module='wegen_custom',studio=null,noupdate=false where name='odoo_studio_crm_lead_d012c162-a395-4b64-bc5f-008bf2a03058';
 update public.ir_ui_view set name='crm.lead.form.inherit.wegen_custom',arch_db='<data>
   <xpath expr="//field[@name=''planned_revenue'']" position="attributes">
       <attribute name="attrs">{}</attribute>
@@ -893,7 +893,7 @@ update public.ir_ui_view set name='crm.lead.form.inherit.wegen_custom',arch_db='
 </data>
 ' where name='Odoo Studio: crm.lead.form customization';
 
-update ir_model_data set name='crm_case_kanban_view_leads', module='wegen_custom',studio=null,noupdate=false where name = 'odoo_studio_crm_lead_f0d95822-d259-41b9-b277-96c49d2e8de9';
+update ir_model_data set name='crm_case_kanban_view_leads_wegen_custom', module='wegen_custom',studio=null,noupdate=false where name = 'odoo_studio_crm_lead_f0d95822-d259-41b9-b277-96c49d2e8de9';
 UPDATE public.ir_ui_view SET name='crm.lead.kanban.lead.inherit.wegen_custom',arch_db='<data>
   <xpath expr="//kanban[1]" position="attributes">
     <attribute name="quick_create">false</attribute>
@@ -931,7 +931,7 @@ update ir_ui_view set name='crm.lead.search.opportunity.inherit.wegen_custom',ar
 </data>
 ' where name='Odoo Studio: crm.lead.search.opportunity customization';
 
-update ir_model_data set name='crm_case_tree_view_oppor',module='wegen_custom',studio=null,noupdate=false where name='odoo_studio_crm_lead_bc494c0b-bcc1-4d9b-9150-edbfaed6adf8';
+update ir_model_data set name='crm_case_tree_view_oppor_wegen_custom',module='wegen_custom',studio=null,noupdate=false where name='odoo_studio_crm_lead_bc494c0b-bcc1-4d9b-9150-edbfaed6adf8';
   update ir_ui_view set name='crm.lead.tree.opportunity.inherit.wegen_custom', arch_db='<data>
   <xpath expr="//tree[1]/field[@name=''probability'']" position="replace"/>
   <xpath expr="//field[@name=''planned_revenue'']" position="replace">
@@ -1193,7 +1193,6 @@ update ir_model_data set name='open_view_project_all_form',module='wegen_custom'
 update ir_model_data set name='open_view_project_all_tree',module='wegen_custom',studio=null,noupdate=false where name='false_e1660123-5590-4fd8-9a62-268f0a4f2d92';
 update ir_model_data set name='open_view_project_all_kanban',module='wegen_custom',studio=null,noupdate=false where name='project_project_kanb_1268b8b6-c07b-48da-854d-e91e04419ee6';
 
-update ir_model_data set module='wegen_custom',studio=null,noupdate=false where name='action_quotations_with_onboarding';
 update ir_model_data set name='open_issue_logs_window',module='wegen_custom',studio=null,noupdate=false where name='issue_logs_b33d2a5b-74b5-42ec-9651-66bce463347c';
 update ir_model_data set name='open_issue_types_window',module='wegen_custom',studio=null,noupdate=false where name='issue_types_b8383b92-2437-42a1-8adc-12207d5cc7e5';
 update ir_model_data set name='open_issue_logs_project',module='wegen_custom',studio=null,noupdate=false where name='issues_85e77f04-83d2-4ba3-9c1d-7df9c38545c4';
