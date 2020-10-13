@@ -243,7 +243,7 @@
             <field name="inherit_id" ref="crm.crm_case_tree_view_oppor" />
             <field name="arch" type="xml">
                 <xpath expr="//tree[1]/field[@name='probability']" position="replace"/>
-                <xpath expr="//field[@name='planned_revenue']" position="replace">
+                <xpath expr="//field[@name='stage_id']" position="replace">
                     <field name="estimated_kwp" sum="Sum of Estimated kWp"/>
                 </xpath>
                 <xpath expr="//field[@name='company_id'][not(ancestor::field)]" position="replace"/>
