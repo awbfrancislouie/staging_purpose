@@ -168,14 +168,14 @@
         <xpath expr="//field[@name='opportunity_id']" position="attributes">
           <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
         </xpath>
-        <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='other_information']/group[2]/group[@name='sale_reporting']/group[@name='utm_link']/field[@name='campaign_id']" position="attributes">
+        <xpath expr="//page[@name='other_information']/group[2]/group[@name='sale_reporting']/group[@name='utm_link']/field[@name='campaign_id']" position="attributes">
           <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
         </xpath>
-        <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='other_information']/group[2]/group[@name='sale_reporting']/group[@name='utm_link']/field[@name='medium_id']" position="attributes">
+        <xpath expr="//page[@name='other_information']/group[2]/group[@name='sale_reporting']/group[@name='utm_link']/field[@name='medium_id']" position="attributes">
           <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
           <attribute name="readonly">1</attribute>
         </xpath>
-        <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='other_information']/group[2]/group[@name='sale_reporting']/group[@name='utm_link']/field[@name='source_id']" position="attributes">
+        <xpath expr="//page[@name='other_information']/group[2]/group[@name='sale_reporting']/group[@name='utm_link']/field[@name='source_id']" position="attributes">
           <attribute name="attrs">{"readonly": [["state","=","done"]]}</attribute>
         </xpath>
         <xpath expr="//field[@name='payment_term_id']" position="attributes">
