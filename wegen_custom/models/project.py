@@ -84,10 +84,13 @@ class Wegen_Task(models.Model):
 
     def _is_admin(self):
         user_groups = [group.id for group in self.env.user.groups_id]
-        _logger.info(str(user_groups))
-        is_project_admin = 19 in user_groups
-        is_access_admin = 2 in user_groups
-        is_settings_admin = 3 in user_groups
+        project_admin = self.env.ref('project.group_project_manager')
+        access_admin = self.env.ref('base.group_erp_manager')
+        settings_admin = self.env.ref('base.group_system')
+
+        is_project_admin = project_admin.id in user_groups
+        is_access_admin = access_admin.id in user_groups
+        is_settings_admin = settings_admin.id in user_groups
 
         if is_project_admin or is_access_admin or is_settings_admin:
             self.is_admin = True
@@ -101,7 +104,7 @@ class Wegen_Task(models.Model):
         self.is_assignee = self.user_id.id == self.env.uid
 
     def _is_creator(self):
-        if self.x_studio_project_classification == 'internal':
+        if self.classification == 'internal':
             is_creator = not self.user_id and self.create_uid.id == self.env.uid
         else:
             is_creator = False
