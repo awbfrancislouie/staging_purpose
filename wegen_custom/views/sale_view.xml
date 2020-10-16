@@ -208,15 +208,6 @@
       <field name="sequence">9</field>
       <field name="web_icon" eval="False"/>
     </record>
-    <record id="sales_team_config" model="ir.ui.menu">
-      <field name="action" ref="sales_team.sales_team_config_action"/>
-      <field name="active" eval="True"/>
-      <field name="groups_id" eval="[(6, 0, [])]"/>
-      <field name="name">Sales Teams</field>
-      <field name="parent_id" ref="sale.menu_sale_config"/>
-      <field name="sequence">1</field>
-      <field name="web_icon" eval="False"/>
-    </record>
     <record id="menu_sales_config" model="ir.ui.menu">
       <field name="action" eval="False"/>
       <field name="active" eval="True"/>
@@ -233,24 +224,6 @@
       <field name="name">Products</field>
       <field name="parent_id" ref="sale.menu_sale_config"/>
       <field name="sequence">9</field>
-      <field name="web_icon" eval="False"/>
-    </record>
-    <record id="menu_sale_general_settings" model="ir.ui.menu">
-      <field name="action" ref="sale.action_sale_config_settings"/>
-      <field name="active" eval="True"/>
-      <field name="groups_id" eval="[(6, 0, [ref('base.group_system')])]"/>
-      <field name="name">Settings</field>
-      <field name="parent_id" ref="sale.menu_sale_config"/>
-      <field name="sequence" eval="False"/>
-      <field name="web_icon" eval="False"/>
-    </record>
-    <record id="sale_order_template_menu" model="ir.ui.menu">
-      <field name="action" ref="sale_management.sale_order_template_action"/>
-      <field name="active" eval="True"/>
-      <field name="groups_id" eval="[(6, 0, [ref('sale_management.group_sale_order_template')])]"/>
-      <field name="name">Quotation Templates</field>
-      <field name="parent_id" ref="sale.menu_sales_config"/>
-      <field name="sequence" eval="False"/>
       <field name="web_icon" eval="False"/>
     </record>
     <record id="sale_pricelist" model="ir.ui.menu">
