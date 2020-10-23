@@ -22,3 +22,6 @@
 [submodule "opportunity_history"]
 	path = opportunity_history
 	url = git@git.awbni.com:odoo-development/erp/opportunity_history.git
+[submodule "account_pdc_payment_report"]
+	path = account_pdc_payment_report
+	url = git@git.awbni.com:odoo-development/erp/account_pdc_payment_report.git
