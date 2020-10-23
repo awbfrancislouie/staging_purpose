@@ -25,3 +25,6 @@
 [submodule "account_pdc_payment_report"]
 	path = account_pdc_payment_report
 	url = git@git.awbni.com:odoo-development/erp/account_pdc_payment_report.git
+[submodule "account_pdc"]
+	path = account_pdc
+	url = git@git.awbni.com:odoo-development/erp/account_pdc.git
