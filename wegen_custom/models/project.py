@@ -104,7 +104,7 @@ class Wegen_Task(models.Model):
         self.is_assignee = self.user_id.id == self.env.uid
 
     def _is_creator(self):
-        if self.classification == 'internal':
+        if self.project_classification == 'internal':
             is_creator = not self.user_id and self.create_uid.id == self.env.uid
         else:
             is_creator = False

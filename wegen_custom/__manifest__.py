@@ -20,11 +20,28 @@
     'version': '13.0.2.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'crm', 'project', 'project_forecast', 'sale_management', 'sale_timesheet'],
+    'depends': ['base',
+                'crm',
+                'project',
+                'project_forecast',
+                'sale_management',
+                'sale_timesheet',
+                'sale_subscription',
+                'documents_account',
+                'account_asset',
+                'purchase',
+                'sale_purchase',
+                'hr_contract',
+                'base_geolocalize',
+                'stock_account',
+                'purchase_stock'
+                ],
 
     # always loaded
     'data': [
+        'security/res_groups.xml',
         'security/ir.model.access.csv',
+        'security/record_rules.xml',
         'views/task.xml',
         'views/payment_terms.xml',
         'views/product_template_views.xml',

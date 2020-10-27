@@ -10,4 +10,4 @@ class WeGenCustomCrmTestUi(TestUi):
         super(WeGenCustomCrmTestUi, self).setUp()
 
     def test_01_crm_tour(self):
-        pass
+        return

@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <data noupdate="0">
+    <!-- ir_rule_201_36373547 -->
+    <record model="ir.rule" id="sale_subscription_report_rule">
+        <field name="name">User: Subordinate Documents Subscription Analysis</field>
+        <field name="model_id" ref="sale_subscription.model_sale_subscription_report"/>
+        <field name="groups" eval="[(4, ref('wegen_custom.group_sales_sales_manager'))]"/>
+        <field name="domain_force">['|',('user_id','=',user.id),('user_id','=',False)]</field>
+    </record>
+
+    <!-- ir_rule_202_fbea291f -->
+    <record model="ir.rule" id="sale_order_line_rule">
+        <field name="name">User: Subordinate Documents Order Lines</field>
+        <field name="model_id" ref="project_timesheet_forecast_sale.model_sale_order_line"/>
+        <field name="groups" eval="[(4, ref('wegen_custom.group_sales_sales_manager'))]"/>
+        <field name="domain_force">['|','|','|',('salesman_id','=',user.id),('salesman_id','=',False),('order_id.team_id.member_ids','in',[user.id]),('order_id.team_id.user_id','=',user.id)]</field>
+    </record>
+
+    <!-- ir_rule_209_c2dedd34 -->
+    <record model="ir.rule" id="planning_slot_read_rule">
+        <field name="name">Planning Shift - Installation</field>
+        <field name="model_id" ref="project_timesheet_forecast_sale.model_planning_slot"/>
+        <field name="groups" eval="[(4, ref('wegen_custom.group_project_installation_manager'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ir_rule_203_8b4d727e -->
+    <record model="ir.rule" id="account_invoice_report_manager_rule">
+        <field name="name">User: Subordinate Documents Invoices Analysis</field>
+        <field name="model_id" ref="sale.model_account_invoice_report"/>
+        <field name="groups" eval="[(4, ref('wegen_custom.group_sales_sales_manager'))]"/>
+        <field name="domain_force">['|', ('invoice_user_id', '=', user.id), ('invoice_user_id', '=', False)]</field>
+    </record>
+
+    <!-- ir_rule_204_1594da00 -->
+    <record model="ir.rule" id="crm_activity_report_manager_rule">
+        <field name="name">User: Subordinate Documents   Activities</field>
+        <field name="model_id" ref="crm_enterprise.model_crm_activity_report"/>
+        <field name="groups" eval="[(4, ref('wegen_custom.group_sales_sales_manager'))]"/>
+        <field name="domain_force">[('user_id','=',user.id),('team_id.member_ids','in',[user.id]),('team_id.user_id','=',user.id)]</field>
+    </record>
+
+    <!-- ir_rule_208_ae28cd9d -->
+    <record model="ir.rule" id="project_task_own_rule">
+        <field name="name">Task - Own Projects</field>
+        <field name="model_id" ref="project_timesheet_forecast_sale.model_project_task"/>
+        <field name="groups" eval="[(4, ref('wegen_custom.group_project_installation_manager'))]"/>
+        <field name="domain_force">['|','|',('project_id.user_id','=',user.id),('user_id','=',user.id),('project_id.tasks.user_id','=',user.id)]</field>
+        <field name="perm_write" eval="False"/>
+    </record>
+
+    <!-- ir_rule_212_5a559387 -->
+    <record model="ir.rule" id="project_task_user_read_rule">
+        <field name="name">Project - Task User Read</field>
+        <field name="model_id" ref="project_timesheet_forecast_sale.model_project_task"/>
+        <field name="groups" eval="[(4, ref('project.group_project_user'))]"/>
+        <field name="domain_force">['|','|','|','|','|','|',('user_id', '=', user.id), ('project_id.tasks.create_uid.id','=',user.id), ('project_id.tasks.user_id','=',user.id),('project_id.sale_order_id.user_id','=', user.id),('project_id.sale_order_id.team_id.member_ids','in',[user.id]),('project_id.sale_order_id.team_id.user_id','=',user.id),('message_partner_ids','in',[user.partner_id.id])]</field>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ir_rule_205_1ba366d5 -->
+    <record model="ir.rule" id="sale_order_manager_rule">
+        <field name="name">User: Subordinate Documents Orders</field>
+        <field name="model_id" ref="sale_purchase.model_sale_order"/>
+        <field name="groups" eval="[(4, ref('wegen_custom.group_sales_sales_manager'))]"/>
+        <field name="domain_force">['|','|',('user_id','=',user.id),('team_id.member_ids','in',[user.id]),('team_id.user_id','=',user.id)]</field>
+    </record>
+
+    <!-- ir_rule_210_a1e0bdf7 -->
+    <record model="ir.rule" id="project_project_assignee_manager_rule">
+        <field name="name">Project - Task Assignee</field>
+        <field name="model_id" ref="project_timesheet_forecast_sale.model_project_project"/>
+        <field name="groups" eval="[(4, ref('wegen_custom.group_project_installation_manager'))]"/>
+        <field name="domain_force">[('tasks.user_id','=',user.id)]</field>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ir_rule_211_e1ff660f -->
+    <record model="ir.rule" id="project_project_manager_rule">
+        <field name="name">Project - Installation Manager</field>
+        <field name="model_id" ref="project_timesheet_forecast_sale.model_project_project"/>
+        <field name="groups" eval="[(4, ref('wegen_custom.group_project_installation_manager'))]"/>
+        <field name="domain_force">['|',('user_id','=',user.id),('classification','=','internal')]</field>
+        <field name="perm_create" eval="False"/>
+    </record>
+
+    <!-- ir_rule_206_f3d8d9cc -->
+    <record model="ir.rule" id="crm_lead_manager_delete">
+        <field name="name">User: Subordinate Documents Leads Delete</field>
+        <field name="model_id" ref="sale_crm.model_crm_lead"/>
+        <field name="groups" eval="[(4, ref('wegen_custom.group_sales_sales_manager'))]"/>
+        <field name="domain_force">['|',('type','=','lead'),'&amp;', ('type','=','opportunity'),('team_id.user_id','=',user.id)]</field>
+        <field name="perm_read" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+
+    <!-- ir_rule_213_c10e942c -->
+    <record model="ir.rule" id="crm_lead_edit_manager_rule">
+        <field name="name">Opportunities - CRM Leads/Opportunity</field>
+        <field name="model_id" ref="sale_crm.model_crm_lead"/>
+        <field name="groups" eval="[(4, ref('wegen_custom.group_sales_marketing_manager'))]"/>
+        <field name="domain_force">['|', ('type','=','lead'),'&amp;', ('type','=','opportunity'),'|', ('user_id','=',user.id), ('user_id','=',False)]</field>
+        <field name="perm_read" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+
+    <!-- ir_rule_214_d68c9474 -->
+    <record model="ir.rule" id="crm_lead_user_rule">
+        <field name="name">Opportunities - CRM Leads/Opportunity</field>
+        <field name="model_id" ref="sale_crm.model_crm_lead"/>
+        <field name="groups" eval="[(4, ref('wegen_custom.group_sales_marketing_user'))]"/>
+        <field name="domain_force">['|', ('type','=','lead'),'&amp;', ('type','=','opportunity'),'|', ('user_id','=',user.id), ('user_id','=',False)]</field>
+        <field name="perm_read" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+
+    <!-- ir_rule_215_8d2e4bb2 -->
+    <record model="ir.rule" id="crm_lead_sales_create_rule">
+        <field name="name">All Leads and Opportunity Create</field>
+        <field name="model_id" ref="sale_crm.model_crm_lead"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="domain_force">['|', ('type','=','lead'),
+     '&amp;', ('type','=','opportunity'), 
+          '|','|','|',('user_id','=',user.id),
+                 ('team_id.user_id','=',user.id),
+                '&amp;',('team_id','=',False),('user_id','=',False),
+                '&amp;',('team_id.member_ids','in',[user.id]),('user_id','=',False),
+]</field>
+        <field name="perm_read" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ir_rule_216_d151aa2b -->
+    <record model="ir.rule" id="crm_lead_user_read_rule">
+        <field name="name">All Leads and Personal and Team Opportunity Read</field>
+        <field name="model_id" ref="sale_crm.model_crm_lead"/>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="domain_force">['|', ('type','=','lead'),'&amp;', ('type','=','opportunity'),'|',('user_id','in',[user.id,False]), '&amp;', ('team_id.member_ids','in',[user.id]), ('user_id','=',False)]</field>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ir_rule_218_68610367 -->
+    <record model="ir.rule" id="crm_lead_manager_create_rule">
+        <field name="name">All Leads and Opportunity Create</field>
+        <field name="model_id" ref="sale_crm.model_crm_lead"/>
+        <field name="groups" eval="[(4, ref('wegen_custom.group_sales_sales_manager'))]"/>
+        <field name="domain_force">['|', ('type','=','lead'),
+     '&amp;', ('type','=','opportunity'), 
+          '|','|','|',('user_id','=',user.id),
+                 ('team_id.user_id','=',user.id),
+                '&amp;',('team_id','=',False),('user_id','=',False),
+                '&amp;',('team_id.member_ids','in',[user.id]),('user_id','=',False),
+]</field>
+        <field name="perm_read" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- ir_rule_219_58ab1ba4 -->
+    <record model="ir.rule" id="crm_lead_manager_read_rule">
+        <field name="name">Sale Team Lead</field>
+        <field name="model_id" ref="sale_crm.model_crm_lead"/>
+        <field name="groups" eval="[(4, ref('wegen_custom.group_sales_sales_manager'))]"/>
+        <field name="domain_force">['|', ('type','=','lead'),
+ '&amp;', ('type','=','opportunity'),
+      '|','|','|',('create_uid','=',user.id),
+         ('user_id','=',user.id),
+         ('team_id.user_id','=',user.id),
+         '&amp;',('team_id','=',False),('user_id','=',False)
+]</field>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+  </data>
+</odoo>

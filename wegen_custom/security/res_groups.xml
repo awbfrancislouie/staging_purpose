@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <data noupdate="0">
+    <!-- res_groups_83_b9309648 -->
+    <record id="group_project_installation_manager" model="res.groups">
+      <field name="name">Installation Manager</field>
+      <field name="category_id" ref="base.module_category_operations_project"/>
+      <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- res_groups_85_954c8c9c -->
+    <record id="group_sales_marketing_user" model="res.groups">
+      <field name="category_id" ref="base.module_category_sales_crm"/>
+      <field name="name">Marketing User</field>
+    </record>
+
+    <!-- res_groups_84_37e6e147 -->
+    <record id="group_sales_marketing_manager" model="res.groups">
+      <field name="category_id" ref="base.module_category_sales_crm"/>
+      <field name="name">Marketing Manager</field>
+      <field name="implied_ids" eval="[(4, ref('group_sales_marketing_user'))]"/>
+    </record>
+
+    <!-- res_groups_81_fa08f01d -->
+    <record id="group_sales_sales_manager" model="res.groups">
+      <field name="category_id" ref="base.module_category_sales_sales"/>
+      <field name="name">Sales Manager</field>
+      <field name="comment">the user will have access to his own data in the sales application.</field>
+      <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+  </data>
+</odoo>
