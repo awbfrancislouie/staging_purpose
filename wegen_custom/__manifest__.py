@@ -55,6 +55,7 @@
         'views/views.xml',
         'views/popa_report_installment.xml',
         'views/popa_report_outright.xml',
+        'data/base_automation.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

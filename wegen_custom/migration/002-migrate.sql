@@ -1,3 +1,15 @@
+update ir_model_data set module='wegen_custom',name='sales_order_payment_term_to_empty_rule' where res_id=5 and model='base.automation';
+update ir_model_data set module='wegen_custom',name='sales_order_get_company_id' where res_id=11 and model='base.automation';
+update ir_model_data set module='wegen_custom',name='task_check_assign_access_rule' where res_id=7 and model='base.automation';
+update ir_model_data set module='wegen_custom',name='task_movement_validation' where res_id=2 and model='base.automation';
+update ir_model_data set module='wegen_custom',name='contact_project_technical_contact' where res_id=9 and model='base.automation';
+update ir_model_data set module='wegen_custom',name='crm_lead_get_company_id' where res_id=4 and model='base.automation';
+update ir_model_data set module='wegen_custom',name='sales_order_add_fields_default' where res_id=6 and model='base.automation';
+update ir_model_data set module='wegen_custom',name='contact_project_billing_contact' where res_id=8 and model='base.automation';
+update ir_model_data set module='wegen_custom',name='sales_order_compute' where res_id=3 and model='base.automation';
+update ir_model_data set module='wegen_custom',name='contact_project_authorized_signatory' where res_id=10 and model='base.automation';
+
+
 insert into ir_model_data (noupdate, name, module, model, res_id)
 values (false, 'group_project_installation_manager', 'wegen_custom', 'res.groups', 83);
 
