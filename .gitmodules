@@ -28,3 +28,6 @@
 [submodule "account_pdc"]
 	path = account_pdc
 	url = git@git.awbni.com:odoo-development/erp/account_pdc.git
+[submodule "purchase_sales_summary_report"]
+	path = purchase_sales_summary_report
+	url = git@git.awbni.com:odoo-development/erp/purchase_sales_summary_report.git
