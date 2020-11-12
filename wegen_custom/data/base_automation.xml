@@ -1,0 +1,374 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <data noupdate="0">
+    <record id="sales_order_payment_term_to_empty_rule" model="base.automation">
+      <field name="name">Sales Order - payment term to empty</field>
+      <field name="sequence">5</field>
+      <field name="model_id" ref="wegen_custom.model_sale_order"/>
+      <field name="trigger">on_change</field>
+      <field name="on_change_fields">transaction_type</field>
+      <field name="state">code</field>
+      <field name="code">record.write({'payment_term_id':False})</field>  
+    </record>
+
+    <record id="sales_order_add_fields_default" model="base.automation">
+      <field name="name">Lead - SO  (Additional Field)</field>
+      <field name="sequence">5</field>
+      <field name="model_id" ref="wegen_custom.model_sale_order"/>
+      <field name="trigger">on_change</field>
+      <field name="on_change_fields">opportunity_id</field>
+      <field name="state">code</field>
+      <field name="code">log('lead to so', level='info')
+if record.opportunity_id:
+  # first condition
+  log('enter lead to so', level='info')
+  
+  warehouse_ids = env['stock.warehouse'].search([('company_id', '=', record.opportunity_id.company_id_1.id)], limit=1)
+  
+  record.write({'warehouse_id': warehouse_ids,
+                'company_id': record.opportunity_id.company_id_1.id,
+                'account_type':record.opportunity_id.account_type,
+                'customer_property_type':record.opportunity_id.property_type,
+                'estimated_kwp':record.opportunity_id.estimated_kwp
+                
+  })  </field>
+    </record>
+
+    <record id="sales_order_compute" model="base.automation">
+      <field name="name">Header to Line (Sales Order)</field>
+      <field name="sequence">5</field>
+      <field name="model_id" ref="wegen_custom.model_sale_order"/>
+      <field name="trigger">on_change</field>
+      <field name="on_change_fields">kwp_rate,system_size,order_line,transaction_type</field>
+      <field name="state">code</field>
+      <field name="code">
+if record.transaction_type == 'installation':
+  if record.order_line:
+    has_installation = False
+    for rec_ol in record.order_line:
+      log(rec_ol.product_id.name, level='info')
+      if rec_ol.product_id.name == 'Solar Installation' and has_installation:
+        raise Warning('Can only have one Solar Installation item per transaction.')
+      elif rec_ol.product_id.name == 'Solar Installation':
+        has_installation = True
+      
+        if rec_ol.product_uom_qty:
+          if record.system_size == 0:
+            rec_ol['product_uom_qty'] = 0
+          else:
+            rec_ol['product_uom_qty'] = round(record.system_size,2)
+            rec_ol['price_unit'] = float(record.kwp_rate)
+    
+  elif record.system_size:
+    for rec_ol in record.order_line:
+      if rec_ol.product_id.name == 'Solar Installation':
+        rec_ol.write({'product_uom_qty': float(record.system_size)})
+  
+  elif record.kwp_rate:
+    for rec_ol in record.order_line:
+      if rec_ol.product_id.name == 'Solar Installation':
+        rec_ol.write({'price_unit': float(record.kwp_rate)})
+  
+  else:
+    pass</field>
+    </record>
+
+    <record id="sales_order_get_company_id" model="base.automation">
+      <field name="name">Lead - SO  get company_id</field>
+      <field name="sequence">5</field>
+      <field name="model_id" ref="wegen_custom.model_sale_order"/>
+      <field name="trigger">on_change</field>
+      <field name="on_change_fields">company_id</field>
+      <field name="state">code</field>
+      <field name="code">
+log('company change', level='info')
+if record.company_id:
+  log('enter company change', level='info')
+  record.sudo().write({'company_id': record.company_id.id})</field>  
+    </record>
+
+    <record id="crm_lead_get_company_id" model="base.automation">
+      <field name="name">Lead Default Company</field>
+      <field name="sequence">5</field>
+      <field name="model_id" ref="wegen_custom.model_crm_lead"/>
+      <field name="trigger">on_change</field>
+      <field name="on_change_fields">set_default_company</field>
+      <field name="state">code</field>
+      <field name="code">
+try:
+  if not record.set_default_company:
+    record.write({'company_id': False})
+except:
+  pass</field>  
+    </record>
+
+    <record id="task_check_assign_access_rule" model="base.automation">
+      <field name="name">Task Assigning</field>
+      <field name="sequence">5</field>
+      <field name="model_id" ref="wegen_custom.model_project_task"/>
+      <field name="trigger">on_write</field>
+      <field name="trigger_field_ids" eval="[(6, 0, [ref('project.field_project_task__user_id')])]"/>
+      <field name="state">code</field>
+      <field name="code">
+
+is_owner = record.project_id.user_id.id == user.id
+user_groups = [group.id for group in list(user.groups_id)]
+
+project_admin = env.ref('project.group_project_manager')
+
+is_admin = project_admin.id in list(user_groups)
+
+if not is_owner and not is_admin:
+  raise Warning('You are not allowed to assign/reassign task. Only Project Owner can update tasks assignee')
+      </field>
+    </record>
+
+    <record id="task_movement_validation" model="base.automation">
+      <field name="name">Task Movement Update</field>
+      <field name="sequence">5</field>
+      <field name="model_id" ref="wegen_custom.model_project_task"/>
+      <field name="trigger">on_write</field>
+      <field name="trigger_field_ids" eval="[(6, 0, [ref('project.field_project_task__stage_id')])]"/>
+      <field name="state">code</field>
+      <field name="code">
+
+user_groups = [group.id for group in user.groups_id]
+
+is_assignee = record.user_id.id == user.id
+is_owner = record.project_id.user_id.id == user.id
+
+project_admin = env.ref('project.group_project_manager')
+access_admin = env.ref('base.group_erp_manager')
+settings_admin = env.ref('base.group_system')
+
+is_project_admin = project_admin.id in user_groups
+is_access_admin = access_admin.id in user_groups
+is_settings_admin = settings_admin.id in user_groups
+
+
+is_sys_admin = is_access_admin or is_settings_admin
+
+if is_assignee or is_owner or is_project_admin or is_sys_admin:
+  pass
+else:
+  raise Warning('You are not allowed to move this task')
+  
+task_list = env['project.task'].search([('project_id','=',record.project_id.id)])
+status_list = ['preparation','Permitting','Installation','Testing and Commissioning','Energized']
+
+
+record_status = record.project_status
+if record_status is None or record_status not in status_list:
+    record_status = None
+else:
+  record_status_idx = status_list.index(record_status) 
+  record_stage_name = record.stage_id.name.lower()
+  
+  # ====    Start Movement Validation ====
+  if record_status_idx == 1:
+      # Special Handling for Permitting
+      for rec in task_list:
+          proj_status = rec.project_status
+          if proj_status is None or proj_status not in status_list:
+              continue
+  
+          status_idx = status_list.index(proj_status)
+          stage_name = rec.stage_id.name.lower()
+  
+          if record_stage_name == 'completed' and record_status_idx > status_idx and stage_name != 'completed':
+              # Restrict Update to completed if previous tasks are not yet completed
+  
+              err_message = '''You are not yet allowed to move/update this task.
+              Other task is not yet completed.
+              Please follow the proper sequence.'''
+              raise Warning(err_message)
+  
+          elif record_status_idx &lt; status_idx and stage_name in ('on-going', 'completed'):
+              # Restrict Update of task if next tasks are already completed
+  
+              err_message = '''You are not allowed to move/update this task.
+              Dependent tasks are either On-Going or Completed.
+              Please follow the proper sequence.'''
+              raise Warning(err_message)
+  
+  else:
+      for rec in task_list:
+          proj_status = rec.project_status
+          if proj_status is None or proj_status not in status_list:
+              continue
+  
+          status_idx = status_list.index(proj_status)
+          stage_name = rec.stage_id.name.lower()
+  
+          # message = '{},{},{},{},{}'.format(record_status_idx,status_idx, record_status_idx > status_idx,rec.name, rec.stage_id.name)
+  
+          # log(message, level='info')
+  
+          if record_status_idx > status_idx and stage_name != 'completed':
+              # Restrict Update of task stage if previous task is not yet completed
+  
+              if record_status_idx &lt; 1 :
+                  # Allow movement of preparation tasks 
+                  continue
+  
+              err_message = '''You are not yet allowed to move/update this task.
+              Other task is not yet completed.
+              Please follow the proper sequence.'''
+              raise Warning(err_message)
+  
+          elif record_status_idx &lt; status_idx and stage_name in ('on-going', 'completed'):
+              # Restrict Update of task if next tasks are already completed
+  
+              if record_status_idx == 0 and status_idx == 1 and stage_name in ('on-going'):
+                  continue
+              err_message = '''You are not allowed to move/update this task.
+  Dependent tasks are either On-Going or Completed.
+  Please follow the proper sequence.'''
+              raise Warning(err_message)
+  
+  # ====    End Movement Validation ====
+  
+  # ====    Start Project Updates ====
+  log('Start Project Update', level='info')
+  project = env['project.project'].sudo().browse(record.project_id.id)
+  
+  today = datetime.datetime.now().date()
+  
+  
+  if record_status in ('preparation', 'Permitting'):
+      # Update starting Date
+      project['state'] = 'planning'
+      if record_stage_name != 'new' and not project.planning_start_date:
+          project['planning_start_date'] = today
+      elif record_status == 'Permitting' and record_stage_name != 'completed':
+          project['planning_end_date'] = ''
+      elif record_status == 'Permitting' and record_stage_name == 'completed':
+          project['planning_end_date'] = today
+  
+  elif record_status in ('Installation'):
+      # Update starting Date
+      project['state'] = 'installation'
+      if record_stage_name != 'new' and not project.installation_start_date:
+          project['installation_start_date'] = today
+      elif record_stage_name == 'new':
+          project['state'] = 'planning'
+          project['installation_start_date'] = ''
+          project['installation_end_date'] = ''
+      elif record_stage_name == 'on-going':
+          project['installation_end_date'] = ''
+      elif record_stage_name == 'completed':
+          project['installation_end_date'] = today
+  
+  elif record_status in ('Testing and Commissioning'):
+      # Update starting Date
+      project['state'] = 'testing'
+      if record_stage_name != 'new' and not project.testing_start_date:
+          project['testing_start_date'] = today
+      elif record_stage_name == 'new':
+          project['state'] = 'installation'
+          project['testing_start_date'] = ''
+          project['testing_end_date'] = ''
+      elif record_stage_name == 'on-going':
+          project['testing_end_date'] = ''
+      elif record_stage_name == 'completed':
+          project['testing_end_date'] = today
+  
+  elif record_status in ('Energized'):
+      # Update starting Date
+      project['state'] = 'energized'
+      if record_stage_name != 'new' and not project.energized_start_date:
+          project['energized_start_date'] = today
+      elif record_stage_name == 'new':
+          project['state'] = 'testing'
+          project['energized_start_date'] = ''
+          project['energized_end_date'] = ''
+      elif record_stage_name == 'on-going':
+          project['energized_end_date'] = ''
+      elif record_stage_name == 'completed':
+          project['energized_end_date'] = today
+  
+      </field>
+    </record>
+
+    <record id="contact_project_technical_contact" model="base.automation">
+      <field name="name">Contact - Project Technical Contact</field>
+      <field name="sequence">5</field>
+      <field name="model_id" ref="wegen_custom.model_res_partner"/>
+      <field name="trigger">on_create_or_write</field>
+      <field name="trigger_field_ids" eval="[(6, 0, [ref('wegen_custom.field_res_partner__is_technical_contact')])]"/>
+      <field name="filter_pre_domain">["&amp;",["type","=","contact"],["is_company","=",False]]</field>
+      <field name="state">code</field>
+      <field name="code">
+
+now = datetime.datetime.now()
+parent_id = record.parent_id.id
+parent = env['res.partner'].browse(parent_id)
+
+
+if parent and record.is_technical_contact is True:
+  record['technical_contact_update'] = now
+else:
+  record['technical_contact_update'] = None
+
+last_contact = env['res.partner'].search([('parent_id','=',parent_id), ('is_technical_contact','=',True)], order='technical_contact_update desc', limit=1)
+
+parent['technical_partner_contact'] = last_contact
+
+      </field>
+    </record>
+
+    <record id="contact_project_billing_contact" model="base.automation">
+      <field name="name">Contact - Project Billing Contact</field>
+      <field name="sequence">5</field>
+      <field name="model_id" ref="wegen_custom.model_res_partner"/>
+      <field name="trigger">on_create_or_write</field>
+      <field name="trigger_field_ids" eval="[(6, 0, [ref('wegen_custom.field_res_partner__is_billing_contact')])]"/>
+      <field name="filter_pre_domain">["&amp;",["type","=","contact"],["is_company","=",False]]</field>
+      <field name="state">code</field>
+      <field name="code">
+
+now = datetime.datetime.now()
+parent_id = record.parent_id.id
+parent = env['res.partner'].browse(parent_id)
+
+
+if parent and record.is_billing_contact is True:
+  record['billing_contact_update'] = now
+else:
+  record['billing_contact_update'] = None
+
+last_contact = env['res.partner'].search([('parent_id','=',parent_id), ('is_billing_contact','=',True)], order='billing_contact_update desc', limit=1)
+
+parent['billing_partner_contact'] = last_contact
+
+
+      </field>
+    </record>
+    <record id="contact_project_authorized_signatory" model="base.automation">
+      <field name="name">Contact - Project Authorized Signatory</field>
+      <field name="sequence">5</field>
+      <field name="model_id" ref="wegen_custom.model_res_partner"/>
+      <field name="trigger">on_create_or_write</field>
+      <field name="trigger_field_ids" eval="[(6, 0, [ref('wegen_custom.field_res_partner__is_authorized_partner_signatory')])]"/>
+      <field name="filter_pre_domain">["&amp;",["type","=","contact"],["is_company","=",False]]</field>
+      <field name="state">code</field>
+      <field name="code">
+
+now = datetime.datetime.now()
+parent_id = record.parent_id.id
+parent = env['res.partner'].browse(parent_id)
+
+
+if parent and record.is_authorized_partner_signatory is True:
+  record['authorized_signatory_update'] = now
+else:
+  record['authorized_signatory_update'] = None
+
+last_contact = env['res.partner'].search([('parent_id','=',parent_id), ('is_authorized_partner_signatory','=',True)], order='authorized_signatory_update desc', limit=1)
+
+parent['authorized_partner_signatory'] = last_contact
+
+      </field>
+    </record>
+  </data>
+</odoo>

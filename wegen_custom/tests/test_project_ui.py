@@ -10,4 +10,4 @@ class WeGenCustomProjectTestUi(TestUi):
         super(WeGenCustomProjectTestUi, self).setUp()
 
     def test_01_project_tour(self):
-        pass
+        return
