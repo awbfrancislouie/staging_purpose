@@ -42,6 +42,7 @@
         'security/res_groups.xml',
         'security/ir.model.access.csv',
         'security/record_rules.xml',
+        'security/record_rules_override.xml',
         'views/task.xml',
         'views/payment_terms.xml',
         'views/product_template_views.xml',
