@@ -1,30 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
-    <!--Find the corresponding "to be inherited record" with noupdate="1" -->
-    <function name="write" model="ir.model.data">            
-        <function name="search" model="ir.model.data">                
-            <value
-                eval="[('module', '=', 'base'), ('name', '=', 'res_users_rule')]"    
-             />            
-        </function>
-
-        <!--Set noupdate to False--> 
-        <value eval="{'noupdate': False}" />
-    </function>
-
     <!--Finish the job, i.e. inheriting/modifying some fields-->
     <record id="base.res_users_rule" model="ir.rule">            
         <field name="domain">[('company_ids', 'in', company_ids)]</field>        
     </record>
-
-    <!--Optional, if you want to set noupdate to True again-->
-    <function name="write" model="ir.model.data">                
-        <function name="search" model="ir.model.data">                        
-            <value            
-                eval="[('module', '=', 'base'), ('name', '=', 'res_users_rule')]"             
-            />                
-        </function>
-        <!--Set noupdate to True-->     
-        <value eval="{'noupdate': True}" /> 
-    </function>
 </odoo>
