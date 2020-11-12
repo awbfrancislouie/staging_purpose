@@ -2,6 +2,6 @@
 <odoo>
     <!--Finish the job, i.e. inheriting/modifying some fields-->
     <record id="base.res_users_rule" model="ir.rule">            
-        <field name="domain">[('company_ids', 'in', company_ids)]</field>        
+        <field name="domain_force">[('company_ids', 'in', company_ids)]</field>        
     </record>
 </odoo>
