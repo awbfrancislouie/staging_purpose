@@ -86,4 +86,101 @@
         <value eval="{'noupdate': True}" />
     </function>
 
+    <!-- SALES -->
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'sale_order_line_personal_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="sale.sale_order_line_personal_rule" model="ir.rule">            
+        <field name="domain_force">[('salesman_id','=',user.id)]</field>
+    </record>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'sale_order_line_personal_rule')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'sale_order_personal_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="sale.sale_order_personal_rule" model="ir.rule">            
+        <field name="domain_force">[('user_id','in',[user.id,False])]</field>
+    </record>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'sale_order_personal_rule')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'account_invoice_report_rule_see_personal')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="sale.account_invoice_report_rule_see_personal" model="ir.rule">            
+        <field name="domain_force">[('invoice_user_id', '=', user.id)]</field>
+    </record>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'account_invoice_report_rule_see_personal')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'sale_order_report_personal_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="sale.sale_order_report_personal_rule" model="ir.rule">            
+        <field name="groups" eval="[(4, ref('group_sales_sales_manager'))]">
+    </record>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'sale_order_report_personal_rule')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'payment_transaction_salesman_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="sale.payment_transaction_salesman_rule" model="ir.rule">            
+        <field name="groups" eval="[(4, ref('group_sales_sales_manager'))]">
+    </record>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'payment_transaction_salesman_rule')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'payment_token_salesman_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="sale.payment_token_salesman_rule" model="ir.rule">            
+        <field name="groups" eval="[(4, ref('group_sales_sales_manager'))]">
+    </record>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'payment_token_salesman_rule')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
 </odoo>
