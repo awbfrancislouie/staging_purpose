@@ -218,4 +218,54 @@
         </function>
         <value eval="{'noupdate': True}" />
     </function>
+
+    <!-- SUBSCRIPTION -->
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale_subscription'), ('name', '=', 'sale_subscription_report_personal_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="sale_subscription.sale_subscription_report_personal_rule" model="ir.rule">            
+        <field name="domain_force">[('user_id','=',user.id)]</field>
+    </record>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale_subscription'), ('name', '=', 'sale_subscription_report_personal_rule')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <!-- STOCK -->
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'stock'), ('name', '=', 'stock_move_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="stock.stock_move_rule" model="ir.rule">            
+        <field name="domain_force">['|', ('company_id', 'in', company_ids), ('location_dest_id.company_id', '=', False)]</field>
+    </record>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'stock'), ('name', '=', 'stock_move_rule')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'stock'), ('name', '=', 'stock_move_line_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="stock.stock_move_line_rule" model="ir.rule">            
+        <field name="domain_force">['|','|',('company_id','=',False),('company_id', 'in', company_ids),('location_dest_id.company_id', '=', False)]</field>
+    </record>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'stock'), ('name', '=', 'stock_move_line_rule')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
 </odoo>
