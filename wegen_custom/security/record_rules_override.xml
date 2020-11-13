@@ -252,4 +252,100 @@
         <value eval="{'noupdate': True}" />
     </function>
 
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'account'), ('name', '=', 'account_move_line_see_all')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <delete model="ir.rule" id="account.account_move_line_see_all"/>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'account'), ('name', '=', 'account_move_see_all')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <delete model="ir.rule" id="account.account_move_see_all"/>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'account'), ('name', '=', 'journal_group_comp_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <delete model="ir.rule" id="account.journal_group_comp_rule"/>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'base'), ('name', '=', 'res_partner_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <delete model="ir.rule" id="base.res_partner_rule"/>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'project_forecast'), ('name', '=', 'planning_rule_project_manager_is_published')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <delete model="ir.rule" id="project_forecast.planning_rule_project_manager_is_published"/>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'project_timesheet_forecast'), ('name', '=', 'project_timesheet_forecast_multi_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <delete model="ir.rule" id="project_timesheet_forecast.project_timesheet_forecast_multi_rule"/>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'purchase'), ('name', '=', 'purchase_user_account_move_line_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <delete model="ir.rule" id="purchase.purchase_user_account_move_line_rule"/>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'purchase'), ('name', '=', 'purchase_user_account_move_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <delete model="ir.rule" id="purchase.purchase_user_account_move_rule"/>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'account_move_line_personal_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <delete model="ir.rule" id="sale.account_move_line_personal_rule"/>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'account_move_line_see_all')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <delete model="ir.rule" id="sale.account_move_line_see_all"/>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'account_move_personal_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <delete model="ir.rule" id="sale.account_move_personal_rule"/>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'sale'), ('name', '=', 'account_move_see_all')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <delete model="ir.rule" id="sale.account_move_see_all"/>
+
 </odoo>
