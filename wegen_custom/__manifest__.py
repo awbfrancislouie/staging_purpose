@@ -29,12 +29,16 @@
                 'sale_subscription',
                 'documents_account',
                 'account_asset',
+                'account_batch',
+                'account_budget',
                 'purchase',
                 'sale_purchase',
                 'hr_contract',
                 'base_geolocalize',
                 'stock_account',
-                'purchase_stock'
+                'stock_landed_costs',
+                'purchase_stock',
+                'social',
                 ],
 
     # always loaded
