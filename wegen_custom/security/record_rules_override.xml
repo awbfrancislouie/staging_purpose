@@ -307,7 +307,8 @@
         <value eval="{'noupdate': False}" />
     </function>
     <delete model="ir.rule" id="purchase.purchase_user_account_move_line_rule"/>
-
+<!-- 
+    Cannot be deleted during Update required by test scenario
     <function model="ir.model.data" name="write">
         <function name="search" model="ir.model.data">
             <value eval="[('module', '=', 'purchase'), ('name', '=', 'purchase_user_account_move_rule')]"/>
@@ -315,7 +316,7 @@
         <value eval="{'noupdate': False}" />
     </function>
     <delete model="ir.rule" id="purchase.purchase_user_account_move_rule"/>
-
+ -->
     <function model="ir.model.data" name="write">
         <function name="search" model="ir.model.data">
             <value eval="[('module', '=', 'sale'), ('name', '=', 'account_move_line_personal_rule')]"/>
