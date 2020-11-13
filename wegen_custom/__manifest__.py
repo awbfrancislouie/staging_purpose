@@ -30,7 +30,7 @@
                 'sale_subscription',
                 'documents_account',
                 'account_asset',
-                'account_batch',
+                'account_batch_payment',
                 'account_budget',
                 'purchase',
                 'sale_purchase',
