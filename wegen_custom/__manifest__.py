@@ -22,6 +22,7 @@
     # any module necessary for this one to work correctly
     'depends': ['base',
                 'crm',
+                'crm_enterprise',
                 'project',
                 'project_forecast',
                 'sale_management',
@@ -38,6 +39,7 @@
                 'stock_account',
                 'stock_landed_costs',
                 'purchase_stock',
+                'project_timesheet_forecast_sale',
                 'social',
                 ],
 
