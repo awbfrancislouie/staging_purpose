@@ -76,10 +76,10 @@
             <value eval="[('module', '=', 'project'), ('name', '=', 'project_public_members_rule')]"/>
         </function>
         <value eval="{'noupdate': False}" />
-        <field name="groups" eval="[(4, ref('project.group_project_user'))]"/>
     </function>
     <record id="project.project_public_members_rule" model="ir.rule">            
         <field name="perm_unlink"></field>
+        <field name="groups" eval="[(4, ref('project.group_project_user'))]"/>
     </record>
     <function model="ir.model.data" name="write">
         <function name="search" model="ir.model.data">
