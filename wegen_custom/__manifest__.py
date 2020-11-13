@@ -37,7 +37,6 @@
                 'hr_contract',
                 'base_geolocalize',
                 'stock_account',
-                'stock_landed_costs',
                 'purchase_stock',
                 'project_timesheet_forecast_sale',
                 'social',
