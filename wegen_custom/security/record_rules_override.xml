@@ -142,7 +142,7 @@
         <value eval="{'noupdate': False}" />
     </function>
     <record id="sale.sale_order_report_personal_rule" model="ir.rule">            
-        <field name="groups" eval="[(4, ref('group_sales_sales_manager'))]">
+        <field name="groups" eval="[(4, ref('group_sales_sales_manager'))]"/>
     </record>
     <function model="ir.model.data" name="write">
         <function name="search" model="ir.model.data">
@@ -158,7 +158,7 @@
         <value eval="{'noupdate': False}" />
     </function>
     <record id="sale.payment_transaction_salesman_rule" model="ir.rule">            
-        <field name="groups" eval="[(4, ref('group_sales_sales_manager'))]">
+        <field name="groups" eval="[(4, ref('group_sales_sales_manager'))]"/>
     </record>
     <function model="ir.model.data" name="write">
         <function name="search" model="ir.model.data">
@@ -174,7 +174,7 @@
         <value eval="{'noupdate': False}" />
     </function>
     <record id="sale.payment_token_salesman_rule" model="ir.rule">            
-        <field name="groups" eval="[(4, ref('group_sales_sales_manager'))]">
+        <field name="groups" eval="[(4, ref('group_sales_sales_manager'))]"/>
     </record>
     <function model="ir.model.data" name="write">
         <function name="search" model="ir.model.data">
