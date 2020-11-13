@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
+    <!-- MULTI COMPANY USER -->
     <function model="ir.model.data" name="write">
         <function name="search" model="ir.model.data">
             <value eval="[('module', '=', 'crm'), ('name', '=', 'crm_rule_personal_lead')]"/>
@@ -17,18 +18,72 @@
         <value eval="{'noupdate': True}" />
     </function>
 
+    <!-- TASK -->
     <function model="ir.model.data" name="write">
         <function name="search" model="ir.model.data">
             <value eval="[('module', '=', 'project'), ('name', '=', 'task_comp_rule')]"/>
         </function>
         <value eval="{'noupdate': False}" />
     </function>
-    <!--Finish the job, i.e. inheriting/modifying some fields-->
     <record id="project.task_comp_rule" model="ir.rule">            
         <field name="domain_force">['|', ('company_id', 'in', company_ids), ('project_id.classification','=','internal')]</field>        
     </record>
-    <!-- <function model="ir.model.data" name="write">
-        <value model="ir.model.data" search="[('module', '=', 'project'), ('name', '=', 'task_comp_rule')]"/>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'project'), ('name', '=', 'task_comp_rule')]"/>
+        </function>
         <value eval="{'noupdate': True}" />
-    </function> -->
+    </function>
+
+    <!-- PROJECT -->
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'project'), ('name', '=', 'project_comp_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="project.project_comp_rule" model="ir.rule">            
+        <field name="domain_force">['|' , ('company_id', 'in', company_ids),('classification','=','internal')]</field>        
+    </record>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'project'), ('name', '=', 'project_comp_rule')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <!-- PROJECT VISIBILITY -->
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'project'), ('name', '=', 'task_visibility_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="project.task_visibility_rule" model="ir.rule">            
+        <field name="perm_unlink"></field>
+    </record>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'project'), ('name', '=', 'task_visibility_rule')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <!-- PROJECT VISIBILITY -->
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'project'), ('name', '=', 'project_public_members_rule')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="project.project_public_members_rule" model="ir.rule">            
+        <field name="perm_unlink"></field>
+    </record>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'project'), ('name', '=', 'project_public_members_rule')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
 </odoo>
