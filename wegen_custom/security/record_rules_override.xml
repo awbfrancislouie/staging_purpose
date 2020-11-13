@@ -183,4 +183,36 @@
         <value eval="{'noupdate': True}" />
     </function>
 
+    <!-- CRM -->
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'crm'), ('name', '=', 'crm_activity_report_rule_personal_activities')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="crm.crm_activity_report_rule_personal_activities" model="ir.rule">            
+        <field name="domain_force">[('user_id','=',user.id)]</field>
+    </record>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'crm'), ('name', '=', 'crm_activity_report_rule_personal_activities')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'project'), ('name', '=', 'crm_rule_personal_lead')]"/>
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="project.crm_rule_personal_lead" model="ir.rule">            
+        <field name="perm_unlink"></field>
+    </record>
+    <function model="ir.model.data" name="write">
+        <function name="search" model="ir.model.data">
+            <value eval="[('module', '=', 'project'), ('name', '=', 'crm_rule_personal_lead')]"/>
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
 </odoo>
